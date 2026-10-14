@@ -2,7 +2,7 @@ name: Mise à jour de l'agenda
 
 on:
   schedule:
-    - cron: "47 15 * * 0"   # chaque dimanche, 15:47 UTC (17:47 en été, 16:47 en hiver, heure de Paris)
+    - cron: "47 0 * * 0"    # chaque dimanche, 00:47 UTC (02:47 en été, 01:47 en hiver, heure de Paris)
   workflow_dispatch:         # permet de lancer la mise à jour à la main depuis l'onglet Actions
 
 permissions:
@@ -54,6 +54,7 @@ jobs:
           git config user.email "agenda-bot@users.noreply.github.com"
           git add events.json last-run.json
           git diff --cached --quiet || git commit -m "Mise à jour automatique de l'agenda"
+          git pull --rebase -X theirs origin main
           git push
 
       - name: Empêcher la désactivation automatique du workflow
