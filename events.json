@@ -1,0 +1,98 @@
+{
+ "updated": "2026-10-14T18:00:00Z",
+ "events": [
+  {
+   "id": "mad-icons-2026",
+   "title": "Icons: 20 Years of Designer of the Year",
+   "city": "Bruxelles",
+   "category": "expo",
+   "venue": "MAD Brussels",
+   "address": "Nieuwe Graanmarkt 10, 1000 Bruxelles",
+   "start": "2026-10-01",
+   "end": "2026-12-12",
+   "days": [
+    3,
+    4,
+    5,
+    6
+   ],
+   "hours": "11:00-18:00",
+   "free": true,
+   "note": "Réservation en ligne obligatoire sur mad.brussels. Le lauréat 2026 est présenté à partir du 14 octobre.",
+   "url": "https://press.mad.brussels/autumn-at-mad-brussels",
+   "addedAt": "2026-10-14",
+   "origin": "auto"
+  },
+  {
+   "id": "mad-future-generation-2026",
+   "title": "Future Generation : MAD Graduation Show 2026",
+   "city": "Bruxelles",
+   "category": "expo",
+   "venue": "MAD Brussels",
+   "address": "Nieuwe Graanmarkt 10, 1000 Bruxelles",
+   "start": "2026-10-01",
+   "end": "2026-12-12",
+   "days": [
+    3,
+    4,
+    5,
+    6
+   ],
+   "hours": "11:00-18:00",
+   "free": true,
+   "note": "Projets de fin d'études de sept écoles bruxelloises de mode et de design. Réservation en ligne obligatoire sur mad.brussels.",
+   "url": "https://press.mad.brussels/autumn-at-mad-brussels",
+   "addedAt": "2026-10-14",
+   "origin": "auto"
+  },
+  {
+   "id": "alto-baba-manifesto-2026",
+   "title": "BABA MANIFESTO : The Manifesto of Babaism",
+   "city": "Bruxelles",
+   "category": "expo",
+   "venue": "Alto Galleria",
+   "address": "",
+   "start": "2026-10-03",
+   "end": "2026-12-19",
+   "free": false,
+   "note": "Exposition de Jacopo Koning. Horaires et adresse à vérifier sur la page de la Brussels Design Week.",
+   "url": "https://designweek.brussels/en/agenda",
+   "addedAt": "2026-10-14",
+   "origin": "auto"
+  },
+  {
+   "id": "gilbard-friends-2026",
+   "title": "Gilbard.e.s & friends",
+   "city": "Bruxelles",
+   "category": "expo",
+   "venue": "Gilbard.e.s",
+   "address": "",
+   "start": "2026-09-04",
+   "end": "2026-10-16",
+   "days": [
+    5
+   ],
+   "hours": "13:30-18:00",
+   "free": false,
+   "note": "Aussi le premier samedi du mois (13:00–17:00) et en semaine sur réservation auprès des commissaires. Dernier jour : vendredi 16 octobre.",
+   "url": "https://designweek.brussels/en/agenda",
+   "addedAt": "2026-10-14",
+   "origin": "auto"
+  },
+  {
+   "id": "monstrueuse-chroniques-charognardes-2026",
+   "title": "Chroniques Charognardes (Hyane)",
+   "city": "Nantes",
+   "category": "expo",
+   "venue": "La Monstrueuse Galerie",
+   "address": "",
+   "start": "2026-09-01",
+   "end": "2026-10-31",
+   "free": false,
+   "note": "Exposition personnelle mêlant dessin et sculpture. Horaires à vérifier auprès de la galerie.",
+   "url": "https://www.baratin.art/2026/10/06/echappee-culturelle-le-guide-incontournable-de-lexposition-a-nantes/",
+   "addedAt": "2026-10-14",
+   "origin": "auto"
+  }
+ ]
+}

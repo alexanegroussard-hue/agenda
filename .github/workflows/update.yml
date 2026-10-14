@@ -1,0 +1,64 @@
+name: Mise à jour de l'agenda
+
+on:
+  schedule:
+    - cron: "47 15 * * 0"   # chaque dimanche, 15:47 UTC (17:47 en été, 16:47 en hiver, heure de Paris)
+  workflow_dispatch:         # permet de lancer la mise à jour à la main depuis l'onglet Actions
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: agenda-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    env:
+      MODEL: qwen2.5:7b
+      OLLAMA_MODELS: /home/runner/ollama-models
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dépendances Python
+        run: pip install -r requirements.txt
+
+      - name: Garder le modèle en cache
+        uses: actions/cache@v4
+        with:
+          path: /home/runner/ollama-models
+          key: ollama-${{ env.MODEL }}
+
+      - name: Installer et démarrer Ollama
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          sudo systemctl stop ollama || true
+          nohup ollama serve > ollama.log 2>&1 &
+          for i in $(seq 1 40); do curl -s http://localhost:11434 > /dev/null && break; sleep 2; done
+          ollama pull "$MODEL"
+
+      - name: Mettre à jour events.json
+        run: python scripts/update.py
+
+      - name: Enregistrer les changements
+        if: always()
+        run: |
+          git config user.name "agenda-bot"
+          git config user.email "agenda-bot@users.noreply.github.com"
+          git add events.json last-run.json
+          git diff --cached --quiet || git commit -m "Mise à jour automatique de l'agenda"
+          git push
+
+      - name: Empêcher la désactivation automatique du workflow
+        if: always()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow enable update.yml --repo "$GITHUB_REPOSITORY"

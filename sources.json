@@ -1,0 +1,22 @@
+{
+  "_aide": "Pour suivre un nouveau site, ajoute une entrée ci-dessous : id (court, sans espace), name, city (Bruxelles ou Nantes), scale (grand, moyen ou petit, indicatif), url (la page qui liste les événements). {mois} et {annee} sont remplacés par le mois en français (octobre) et l'année en cours.",
+  "sources": [
+    {"id": "bdw-agenda", "name": "Brussels Design Week", "city": "Bruxelles", "scale": "grand", "url": "https://designweek.brussels/en/agenda"},
+    {"id": "mad-brussels", "name": "MAD Brussels", "city": "Bruxelles", "scale": "moyen", "url": "https://mad.brussels/en", "venue": "MAD Brussels"},
+    {"id": "design-museum-brussels", "name": "Design Museum Brussels", "city": "Bruxelles", "scale": "moyen", "url": "https://designmuseum.brussels/en/agenda/", "venue": "Design Museum Brussels"},
+    {"id": "brussels-museums", "name": "Brussels Museums", "city": "Bruxelles", "scale": "grand", "url": "https://www.brusselsmuseums.be/fr/agenda"},
+    {"id": "bozar", "name": "BOZAR", "city": "Bruxelles", "scale": "grand", "url": "https://bruxelles.evous.be/musees/expositions-en-cours-et-a-venir-au-bozar.html", "venue": "BOZAR"},
+    {"id": "visit-brussels-expos", "name": "visit.brussels, expositions", "city": "Bruxelles", "scale": "grand", "url": "https://www.visit.brussels/en/visitors/agenda/brussels-major-art-exhibitions-our-must-sees"},
+    {"id": "evous-bxl-expos", "name": "Evous Bruxelles, expositions", "city": "Bruxelles", "scale": "moyen", "url": "https://bruxelles.evous.be/musees/expositions/"},
+    {"id": "evous-bxl-salons", "name": "Evous Bruxelles, salons", "city": "Bruxelles", "scale": "grand", "url": "https://bruxelles.evous.be/salons/{mois}"},
+
+    {"id": "nantes-metropole", "name": "Nantes Métropole, agenda", "city": "Nantes", "scale": "grand", "url": "https://metropole.nantes.fr/que-faire-a-nantes/agenda"},
+    {"id": "wik-nantes", "name": "Wik Nantes, expositions", "city": "Nantes", "scale": "moyen", "url": "https://www.wik-nantes.fr/expos"},
+    {"id": "agendaculturel-44", "name": "Agenda culturel 44, expositions", "city": "Nantes", "scale": "moyen", "url": "https://44.agendaculturel.fr/exposition/nantes/"},
+    {"id": "evous-nantes-musees", "name": "Evous Nantes, musées et expositions", "city": "Nantes", "scale": "moyen", "url": "https://nantes.evous.fr/musees/"},
+    {"id": "evous-nantes-salons", "name": "Evous Nantes, salons", "city": "Nantes", "scale": "grand", "url": "https://nantes.evous.fr/salons/{mois}/"},
+    {"id": "ecole-design-nantes", "name": "École de design Nantes Atlantique", "city": "Nantes", "scale": "moyen", "url": "https://lecolededesign.com/en/news-events"},
+    {"id": "beaux-arts-nantes", "name": "Beaux-Arts Nantes Saint-Nazaire", "city": "Nantes", "scale": "petit", "url": "https://beauxartsnantes.fr/fr/open-school/expositions", "venue": "Beaux-Arts Nantes Saint-Nazaire"},
+    {"id": "musee-imprimerie-nantes", "name": "Musée de l'imprimerie de Nantes", "city": "Nantes", "scale": "petit", "url": "https://musee-imprimerie.com/", "venue": "Musée de l'imprimerie de Nantes"}
+  ]
+}

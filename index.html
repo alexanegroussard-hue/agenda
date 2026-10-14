@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agenda Graphisme</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a printed wall calendar. Big day numerals in a left column, events as proof sheets on the right.
+   Two spot colours (one per city) as in two-colour print. */
+:root {
+  --paper: #F5F6F8;
+  --ink: #14151A;
+  --muted: #5B6070;
+  --rule: #D5D8DE;
+  --card: #FFFFFF;
+  --bxl: #D6004B;
+  --nte: #1F3BE6;
+  --on-spot: #FFFFFF;
+  --focus: #14151A;
+  --f-display: "Bricolage Grotesque", "Arial Narrow", Arial, sans-serif;
+  --f-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121317; --ink: #ECEDF1; --muted: #9AA0B2; --rule: #2C2F38; --card: #1A1C22;
+    --bxl: #FF5C8F; --nte: #8CA0FF; --on-spot: #121317; --focus: #ECEDF1;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121317; --ink: #ECEDF1; --muted: #9AA0B2; --rule: #2C2F38; --card: #1A1C22;
+  --bxl: #FF5C8F; --nte: #8CA0FF; --on-spot: #121317; --focus: #ECEDF1;
+  color-scheme: dark;
+}
+html { color-scheme: light; }
+body { margin: 0; }
+[hidden] { display: none !important; }
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--f-body); font-size: 15px; line-height: 1.45;
+  padding-block: 20px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.mast { display: flex; flex-direction: column; gap: 6px; }
+.kicker { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; }
+.dot.bxl { background: var(--bxl); } .dot.nte { background: var(--nte); }
+h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(34px, 9vw, 56px); line-height: 1; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+.sub { color: var(--muted); font-size: 14px; margin: 0; }
+
+.bar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; border-top: 2px solid var(--ink); padding-top: 12px; }
+.seg { display: inline-flex; border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; }
+.seg button { background: transparent; border: 0; padding: 7px 14px; cursor: pointer; font-weight: 500; }
+.seg button + button { border-left: 1.5px solid var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.nav { display: inline-flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.nav button { background: transparent; border: 1.5px solid var(--rule); border-radius: 6px; padding: 6px 12px; cursor: pointer; font-family: var(--f-mono); font-size: 13px; }
+.nav button:hover { border-color: var(--ink); }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { display: inline-flex; align-items: center; gap: 7px; border: 1.5px solid var(--rule); background: transparent; border-radius: 999px; padding: 5px 12px; cursor: pointer; font-size: 14px; }
+.chip[aria-pressed="true"] { border-color: var(--ink); background: var(--card); font-weight: 600; }
+
+.day { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 4px 14px; padding-block: 14px; border-top: 1px solid var(--rule); }
+.day.today .num { color: var(--bxl); }
+.dnum { display: flex; flex-direction: column; line-height: 1; }
+.num { font-family: var(--f-display); font-weight: 700; font-size: 44px; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.dow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.evs { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.none { color: var(--muted); font-size: 14px; padding-top: 8px; }
+
+.ev { background: var(--card); border: 1px solid var(--rule); border-left-width: 5px; border-radius: 4px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.ev.bxl { border-left-color: var(--bxl); } .ev.nte { border-left-color: var(--nte); }
+.meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; }
+.tag { padding: 2px 7px; border-radius: 3px; color: var(--on-spot); font-weight: 500; }
+.tag.bxl { background: var(--bxl); } .tag.nte { background: var(--nte); }
+.cat { border: 1px solid var(--muted); color: var(--muted); padding: 1px 6px; border-radius: 3px; }
+.ev h3 { font-family: var(--f-display); font-weight: 700; font-size: 20px; line-height: 1.15; margin: 0; letter-spacing: -.01em; text-wrap: balance; overflow-wrap: anywhere; }
+.line { font-size: 14px; color: var(--muted); overflow-wrap: anywhere; }
+.line strong { color: var(--ink); font-weight: 600; }
+.note { font-size: 13.5px; }
+.acts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--ink); border-radius: 5px; padding: 6px 11px; text-decoration: none; font-size: 13.5px; font-weight: 500; background: transparent; }
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn.ghost { border-color: var(--rule); font-weight: 400; }
+.btn.ghost:hover { border-color: var(--ink); background: transparent; color: var(--ink); }
+
+.wk { padding-top: 18px; border-top: 2px solid var(--ink); display: flex; flex-direction: column; gap: 12px; }
+.wk h2 { font-family: var(--f-mono); font-weight: 500; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin: 0; }
+
+.state { border: 1.5px dashed var(--rule); border-radius: 6px; padding: 22px 18px; color: var(--muted); }
+.state b { color: var(--ink); display: block; font-family: var(--f-display); font-size: 18px; margin-bottom: 4px; }
+.foot { font-family: var(--f-mono); font-size: 12px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 12px; }
+@media (max-width: 420px) {
+  .day { grid-template-columns: 52px minmax(0, 1fr); gap: 4px 10px; }
+  .num { font-size: 36px; }
+}
+@media (prefers-reduced-motion: no-preference) { .btn, .chip, .seg button { transition: background .12s, color .12s, border-color .12s; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <div class="kicker"><span><span class="dot bxl"></span> Bruxelles</span><span><span class="dot nte"></span> Nantes</span><span>Graphisme &amp; design</span></div>
+    <h1 id="title">Semaine à venir</h1>
+    <p class="sub" id="range"></p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Vue">
+      <button id="v-week" type="button" aria-pressed="true">Semaine</button>
+      <button id="v-month" type="button" aria-pressed="false">Mois</button>
+    </div>
+    <div class="nav">
+      <button id="prev" type="button" aria-label="Précédent">←</button>
+      <button id="today" type="button">À venir</button>
+      <button id="next" type="button" aria-label="Suivant">→</button>
+    </div>
+  </div>
+  <div class="chips" role="group" aria-label="Ville">
+    <button class="chip" id="c-all" type="button" aria-pressed="true">Les deux</button>
+    <button class="chip" id="c-bxl" type="button" aria-pressed="false"><span class="dot bxl"></span>Bruxelles</button>
+    <button class="chip" id="c-nte" type="button" aria-pressed="false"><span class="dot nte"></span>Nantes</button>
+  </div>
+
+  <main id="out" aria-live="polite">
+    <div class="state"><b>Chargement du programme</b>Les événements s'affichent dans un instant.</div>
+  </main>
+  <div class="foot" id="foot"></div>
+</div>
+
+<script>
+(function () {
+  var MONTHS = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+  var MS = ["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
+  var DOW = ["dim.","lun.","mar.","mer.","jeu.","ven.","sam."];
+  var DOWL = ["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+  var CATS = { expo: "Expo", salon: "Salon", forum: "Forum", conf: "Conférence", autre: "Événement" };
+
+  var events = [];
+  var state = { view: "week", city: "all", weekStart: null, month: null, status: "loading" };
+
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function iso(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+  function parse(s) { var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function addDays(d, n) { var x = new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); return x; }
+  function mondayOf(d) { var k = (d.getDay() + 6) % 7; return addDays(d, -k); }
+  function upcomingMonday() { var t = new Date(); var k = (t.getDay() + 6) % 7; return addDays(new Date(t.getFullYear(), t.getMonth(), t.getDate()), 7 - k); }
+  function short(d) { return d.getDate() + " " + MS[d.getMonth()]; }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function safeUrl(u) { return /^https:\/\//.test(u || "") ? u : ""; }
+
+  function occursOn(ev, d) {
+    var s = iso(d);
+    if (!ev.start || s < ev.start || s > (ev.end || ev.start)) return false;
+    if (ev.days && ev.days.length && ev.days.indexOf(d.getDay()) === -1) return false;
+    return true;
+  }
+  function daysText(days) {
+    if (!days || !days.length) return "";
+    var order = [1, 2, 3, 4, 5, 6, 0];
+    var idx = days.map(function (x) { return order.indexOf(x); }).sort(function (a, b) { return a - b; });
+    var contiguous = idx.every(function (v, i) { return i === 0 || v === idx[i - 1] + 1; });
+    var names = idx.map(function (i) { return DOW[order[i]].replace(".", ""); });
+    return contiguous && names.length > 2 ? names[0] + "–" + names[names.length - 1] : names.join(", ");
+  }
+  function rangeText(ev) {
+    var a = parse(ev.start), b = parse(ev.end || ev.start);
+    if (iso(a) === iso(b)) return short(a);
+    return short(a) + " → " + short(b);
+  }
+  function calUrl(ev, d) {
+    var text = encodeURIComponent(ev.title);
+    var loc = encodeURIComponent([ev.venue, ev.address].filter(Boolean).join(", "));
+    var det = encodeURIComponent((ev.note ? ev.note + "\n" : "") + (safeUrl(ev.url) ? "Source : " + ev.url : ""));
+    var tz = ev.city === "Nantes" ? "Europe/Paris" : "Europe/Brussels";
+    var dates;
+    var m = /^(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})$/.exec(ev.hours || "");
+    var ymd = iso(d).replace(/-/g, "");
+    if (m) {
+      dates = ymd + "T" + pad(+m[1]) + m[2] + "00/" + ymd + "T" + pad(+m[3]) + m[4] + "00";
+    } else {
+      dates = ymd + "/" + iso(addDays(d, 1)).replace(/-/g, "");
+    }
+    return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + text + "&dates=" + dates + "&ctz=" + encodeURIComponent(tz) + "&location=" + loc + "&details=" + det;
+  }
+  function cityClass(ev) { return ev.city === "Nantes" ? "nte" : "bxl"; }
+  function visible(ev) { return state.city === "all" || (state.city === "bxl" ? ev.city === "Bruxelles" : ev.city === "Nantes"); }
+
+  function evCard(ev, d, showRange) {
+    var cc = cityClass(ev);
+    var when = [];
+    if (ev.hours) when.push("<strong>" + esc(ev.hours.replace("-", " – ")) + "</strong>");
+    if (showRange) {
+      when.push(esc(rangeText(ev)));
+      var dt = daysText(ev.days); if (dt) when.push(esc(dt));
+    }
+    var url = safeUrl(ev.url);
+    return '<article class="ev ' + cc + '">' +
+      '<div class="meta"><span class="tag ' + cc + '">' + esc(ev.city) + '</span><span class="cat">' + esc(CATS[ev.category] || CATS.autre) + '</span>' + (ev.free ? '<span class="cat">Gratuit</span>' : "") + '</div>' +
+      '<h3>' + esc(ev.title) + '</h3>' +
+      '<div class="line">' + esc(ev.venue || "") + (ev.address ? " · " + esc(ev.address) : "") + '</div>' +
+      (when.length ? '<div class="line">' + when.join(" · ") + '</div>' : "") +
+      (ev.note ? '<div class="note">' + esc(ev.note) + '</div>' : "") +
+      '<div class="acts"><a class="btn" target="_blank" rel="noopener" href="' + esc(calUrl(ev, d)) + '">Ajouter à Google Agenda</a>' +
+      (url ? '<a class="btn ghost" target="_blank" rel="noopener" href="' + esc(url) + '">Source</a>' : "") + '</div></article>';
+  }
+  function sortEv(a, b) { return (a.hours || "99").localeCompare(b.hours || "99") || a.title.localeCompare(b.title); }
+
+  function renderWeek() {
+    var ws = state.weekStart, we = addDays(ws, 6);
+    var todayIso = iso(new Date());
+    var up = iso(upcomingMonday()) === iso(ws);
+    document.getElementById("title").textContent = up ? "Semaine à venir" : (iso(mondayOf(new Date())) === iso(ws) ? "Cette semaine" : "Semaine du " + short(ws));
+    document.getElementById("range").textContent = DOWL[1] + " " + short(ws) + " → " + DOWL[0] + " " + short(we) + " " + we.getFullYear();
+    var html = "", total = 0;
+    for (var i = 0; i < 7; i++) {
+      var d = addDays(ws, i);
+      var list = events.filter(function (e) { return visible(e) && occursOn(e, d); }).sort(sortEv);
+      total += list.length;
+      html += '<section class="day' + (iso(d) === todayIso ? " today" : "") + '"><div class="dnum"><span class="num">' + d.getDate() + '</span><span class="dow">' + DOW[d.getDay()] + '</span></div><div class="evs">' +
+        (list.length ? list.map(function (e) { return evCard(e, d, false); }).join("") : '<div class="none">Rien de prévu.</div>') + '</div></section>';
+    }
+    return { html: html, total: total };
+  }
+
+  function renderMonth() {
+    var m = state.month; // first day of month
+    var y = m.getFullYear(), mo = m.getMonth();
+    document.getElementById("title").textContent = MONTHS[mo].charAt(0).toUpperCase() + MONTHS[mo].slice(1) + " " + y;
+    document.getElementById("range").textContent = "Tous les événements du mois, semaine par semaine.";
+    var first = new Date(y, mo, 1), last = new Date(y, mo + 1, 0);
+    var html = "", total = 0;
+    for (var ws = mondayOf(first); ws <= last; ws = addDays(ws, 7)) {
+      var items = [];
+      events.forEach(function (e) {
+        if (!visible(e)) return;
+        for (var i = 0; i < 7; i++) {
+          var d = addDays(ws, i);
+          if (d < first || d > last) continue;
+          if (occursOn(e, d)) { items.push({ e: e, d: d }); break; }
+        }
+      });
+      var a = ws < first ? first : ws, b = addDays(ws, 6) > last ? last : addDays(ws, 6);
+      total += items.length;
+      items.sort(function (p, q) { return iso(p.d).localeCompare(iso(q.d)) || sortEv(p.e, q.e); });
+      html += '<section class="wk"><h2>Du ' + short(a) + ' au ' + short(b) + '</h2>' +
+        (items.length ? items.map(function (it) { return evCard(it.e, it.d, true); }).join("") : '<div class="none">Rien de prévu.</div>') + '</section>';
+    }
+    return { html: html, total: total };
+  }
+
+  function render() {
+    var out = document.getElementById("out");
+    document.getElementById("v-week").setAttribute("aria-pressed", state.view === "week");
+    document.getElementById("v-month").setAttribute("aria-pressed", state.view === "month");
+    document.getElementById("c-all").setAttribute("aria-pressed", state.city === "all");
+    document.getElementById("c-bxl").setAttribute("aria-pressed", state.city === "bxl");
+    document.getElementById("c-nte").setAttribute("aria-pressed", state.city === "nte");
+    var r = state.view === "week" ? renderWeek() : renderMonth();
+    if (state.status === "loading") {
+      out.innerHTML = '<div class="state"><b>Chargement du programme</b>Les événements s\'affichent dans un instant.</div>';
+    } else if (state.status === "unavailable") {
+      out.innerHTML = '<div class="state"><b>Le programme n\'a pas pu être chargé</b>Recharge la page. Si le problème continue, le fichier events.json est peut-être absent du dépôt.</div>';
+    } else if (!events.length) {
+      out.innerHTML = '<div class="state"><b>Aucun événement enregistré</b>La mise à jour du dimanche remplit cette page.</div>';
+    } else {
+      out.innerHTML = r.html;
+    }
+    var latest = state.updated ? state.updated.slice(0, 10) : "";
+    document.getElementById("foot").textContent = latest ? "Dernière mise à jour : " + short(parse(latest)) + " " + parse(latest).getFullYear() + " · mise à jour chaque dimanche" : "Mise à jour chaque dimanche";
+  }
+
+  function go(delta) {
+    if (state.view === "week") state.weekStart = addDays(state.weekStart, 7 * delta);
+    else state.month = new Date(state.month.getFullYear(), state.month.getMonth() + delta, 1);
+    render();
+  }
+  state.weekStart = upcomingMonday();
+  var now = new Date(); state.month = new Date(now.getFullYear(), now.getMonth(), 1);
+
+  document.getElementById("v-week").onclick = function () { state.view = "week"; render(); };
+  document.getElementById("v-month").onclick = function () { state.view = "month"; render(); };
+  document.getElementById("prev").onclick = function () { go(-1); };
+  document.getElementById("next").onclick = function () { go(1); };
+  document.getElementById("today").onclick = function () {
+    state.weekStart = upcomingMonday(); var n = new Date(); state.month = new Date(n.getFullYear(), n.getMonth(), 1); render();
+  };
+  document.getElementById("c-all").onclick = function () { state.city = "all"; render(); };
+  document.getElementById("c-bxl").onclick = function () { state.city = "bxl"; render(); };
+  document.getElementById("c-nte").onclick = function () { state.city = "nte"; render(); };
+
+  render();
+
+  fetch("events.json?v=" + Date.now()).then(function (r) {
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return r.json();
+  }).then(function (j) {
+    events = j.events || [];
+    state.updated = j.updated || "";
+    state.status = "ready"; render();
+  }).catch(function () { state.status = "unavailable"; render(); });
+})();
+</script>
+</body>
+</html>
