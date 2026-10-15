@@ -1,5 +1,5 @@
 {
-  "_aide": "Pour suivre un nouveau site, ajoute une entrée ci-dessous : id (court, sans espace), name, city (Bruxelles ou Nantes), scale (grand, moyen ou petit, indicatif), url (la page qui liste les événements). {mois} et {annee} sont remplacés par le mois en français (octobre) et l'année en cours. Réglages facultatifs : design_only (true : tous les événements du lieu sont gardés, sans filtre de sujet) et max_chunks (nombre de blocs de texte lus, 4 par défaut).",
+  "_aide": "Cette liste se modifie aussi depuis la page (onglet Sources). Chaque site : id, name, city (Bruxelles ou Nantes), url, scale (indicatif). kind \"atelier\" : lieu qui propose des ateliers sur demande, sans dates ; il apparaît dans l'onglet Ateliers et n'est pas lu par le modèle (champ note = description affichée). Sans kind : site d'agenda, lu chaque dimanche ; {mois} et {annee} dans l'url sont remplacés par le mois en français et l'année. Réglages facultatifs : design_only (true : tous les événements du lieu sont gardés) et max_chunks (blocs de texte lus, 4 par défaut).",
   "sources": [
     {"id": "bdw-agenda", "name": "Brussels Design Week", "city": "Bruxelles", "scale": "grand", "url": "https://designweek.brussels/en/agenda", "design_only": true, "max_chunks": 10},
     {"id": "mad-brussels", "name": "MAD Brussels", "city": "Bruxelles", "scale": "moyen", "url": "https://mad.brussels/en", "venue": "MAD Brussels", "design_only": true},
@@ -14,10 +14,10 @@
     {"id": "evous-nantes-musees", "name": "Evous Nantes, musées et expositions", "city": "Nantes", "scale": "moyen", "url": "https://nantes.evous.fr/musees/"},
     {"id": "evous-nantes-salons", "name": "Evous Nantes, salons", "city": "Nantes", "scale": "grand", "url": "https://nantes.evous.fr/salons/{mois}/"},
     {"id": "beaux-arts-nantes", "name": "Beaux-Arts Nantes Saint-Nazaire", "city": "Nantes", "scale": "petit", "url": "https://beauxartsnantes.fr/fr/open-school/expositions", "venue": "Beaux-Arts Nantes Saint-Nazaire"},
-    {"id": "musee-imprimerie-nantes", "name": "Musée de l'imprimerie de Nantes", "city": "Nantes", "scale": "petit", "url": "https://musee-imprimerie.com/", "venue": "Musée de l'imprimerie de Nantes", "design_only": true},
+    {"id": "musee-imprimerie-nantes", "name": "Musée de l'imprimerie de Nantes", "city": "Nantes", "scale": "petit", "url": "https://musee-imprimerie.com/", "kind": "atelier", "note": "Ateliers d'impression typographique, visites et stages sur demande."},
     {"id": "tour-taxis", "name": "Tour & Taxis", "city": "Bruxelles", "scale": "grand", "url": "https://tour-taxis.com/events/", "venue": "Tour & Taxis", "max_chunks": 6},
     {"id": "neca-brussels", "name": "NECA, expositions d'art contemporain", "city": "Bruxelles", "scale": "moyen", "url": "https://neca.brussels/exhibitions", "max_chunks": 6},
     {"id": "ixelles-expos", "name": "Commune d'Ixelles, expositions", "city": "Bruxelles", "scale": "petit", "url": "https://www.ixelles.be/site/agenda.php?type=7", "max_chunks": 6},
-    {"id": "atelier-dulcie-september", "name": "Atelier Dulcie September", "city": "Nantes", "scale": "petit", "url": "https://www.atelierdulcieseptember.fr/agenda-1", "venue": "Atelier Dulcie September"}
+    {"id": "atelier-dulcie-september", "name": "Atelier Dulcie September", "city": "Nantes", "scale": "petit", "url": "https://www.atelierdulcieseptember.fr/agenda-1", "kind": "atelier", "note": "Atelier d'artistes : stages et ateliers, voir l'agenda du site."}
   ]
 }

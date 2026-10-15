@@ -283,7 +283,9 @@ def richness(ev: dict) -> int:
 
 def main() -> int:
     d, wend = today(), window_end(today())
-    sources = json.loads((ROOT / "sources.json").read_text(encoding="utf-8"))["sources"]
+    all_sources = json.loads((ROOT / "sources.json").read_text(encoding="utf-8"))["sources"]
+    known_ids = {s["id"] for s in all_sources if s.get("kind") != "atelier"}
+    sources = [s for s in all_sources if s.get("kind") != "atelier"]
     events_path = OUT_DIR / "events.json"
     existing = []
     if events_path.exists():
@@ -368,6 +370,8 @@ def main() -> int:
     if found:
         merged = {}
         for ev in existing:
+            if ev.get("origin") != "manual" and ev.get("source") and ev["source"] not in known_ids:
+                continue  # source retirée de la liste, ou devenue « atelier » : ses événements disparaissent
             if ev.get("origin") == "manual":
                 merged[f"manual|{ev.get('id', event_key(ev))}"] = ev
             elif parse_date(ev.get("end", "")) and parse_date(ev["end"]) >= d - dt.timedelta(days=KEEP_PAST_DAYS):

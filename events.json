@@ -2,21 +2,6 @@
  "updated": "2026-10-15T11:56:15Z",
  "events": [
   {
-   "title": "Le livre d'artiste concours et exposition",
-   "city": "Nantes",
-   "category": "expo",
-   "venue": "Musée de l'imprimerie de Nantes",
-   "address": "",
-   "start": "2026-07-01",
-   "end": "2026-11-15",
-   "free": false,
-   "url": "https://musee-imprimerie.com/evenement/le-livre-dartiste/",
-   "source": "musee-imprimerie-nantes",
-   "origin": "auto",
-   "id": "le-livre-d-artiste-concours-et-exposition-2026-07-01",
-   "addedAt": "2026-10-14"
-  },
-  {
    "id": "monstrueuse-chroniques-charognardes-2026",
    "title": "Chroniques Charognardes (Hyane)",
    "city": "Nantes",
@@ -173,21 +158,6 @@
    "addedAt": "2026-10-15"
   },
   {
-   "title": "La taille douce, gravure sur cuivre",
-   "city": "Nantes",
-   "category": "expo",
-   "venue": "Musée de l'imprimerie de Nantes",
-   "address": "",
-   "start": "2026-10-15",
-   "end": "2026-10-16",
-   "free": false,
-   "url": "https://musee-imprimerie.com/evenement/pointe-seche/",
-   "source": "musee-imprimerie-nantes",
-   "origin": "auto",
-   "id": "la-taille-douce-gravure-sur-cuivre-2026-10-15",
-   "addedAt": "2026-10-14"
-  },
-  {
    "title": "Matthäus- Passion Edgar Sarin",
    "city": "Bruxelles",
    "category": "expo",
@@ -233,21 +203,6 @@
    "hours": "10:00-18:00",
    "id": "minimal-processes-of-change-2026-10-16",
    "addedAt": "2026-10-15"
-  },
-  {
-   "title": "Calligraphie latine adultes initiés",
-   "city": "Nantes",
-   "category": "expo",
-   "venue": "Musée de l'imprimerie de Nantes",
-   "address": "",
-   "start": "2026-10-17",
-   "end": "2026-10-17",
-   "free": false,
-   "url": "https://musee-imprimerie.com/evenement/calligraphie-latine-adultes-inities-2/",
-   "source": "musee-imprimerie-nantes",
-   "origin": "auto",
-   "id": "calligraphie-latine-adultes-inities-2026-10-17",
-   "addedAt": "2026-10-14"
   },
   {
    "title": "Loïc Sécheresse - Exposition",

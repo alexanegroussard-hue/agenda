@@ -1,7 +1,7 @@
 # Agenda Graphisme
 
 Salons, expositions, forums et autres événements de graphisme et de design à Bruxelles et à Nantes.
-La page affiche la semaine à venir, avec un onglet « Mois » et un bouton « Ajouter à Google Agenda » sur chaque événement.
+La page a trois onglets : **Agenda** (liste des événements entre deux dates, 7 prochains jours par défaut, avec un bouton « Ajouter à Google Agenda »), **Ateliers** (lieux qui proposent des ateliers sur demande) et **Sources** (liste des sites lus, modifiable depuis la page).
 
 ## Fonctionnement
 
@@ -22,7 +22,13 @@ Contrôles appliqués à chaque événement trouvé par le modèle : dates valid
 
 ## Ajouter ou retirer un site
 
-Modifie `sources.json` : une entrée par site, avec `id`, `name`, `city` (Bruxelles ou Nantes), `scale` (indicatif), `url` de la page qui liste les événements. `{mois}` et `{annee}` dans l'URL sont remplacés par le mois en français et l'année en cours. Deux réglages facultatifs : `"design_only": true` pour un lieu entièrement consacré au design (tous ses événements sont gardés, sans filtre de sujet) et `"max_chunks": 10` pour lire plus de texte sur une page très longue (4 par défaut, environ 7 000 caractères chacun). Le résumé de chaque exécution indique, par source, combien d'événements le modèle a extraits, combien ont été retenus, combien de texte a été lu et des exemples d'événements écartés comme hors sujet.
+Le plus simple : onglet **Sources** de la page (Ajouter un site, Modifier, Retirer). Pour que la page puisse enregistrer, il faut la première fois coller sur chaque appareil un jeton GitHub (explications dans l'encadré de l'onglet : jeton « fine-grained » limité au dépôt `agenda`, permission Contents en lecture et écriture). Sans jeton, la page garde la modification le temps de la visite et propose de télécharger `sources.json`.
+
+On peut aussi modifier `sources.json` à la main : une entrée par site, avec `id`, `name`, `city` (Bruxelles ou Nantes), `scale` (indicatif), `url`. `{mois}` et `{annee}` dans l'URL sont remplacés par le mois en français et l'année en cours.
+- Sans `kind` : site d'agenda, lu chaque dimanche par le modèle. Réglages facultatifs : `"design_only": true` (lieu entièrement consacré au design, tous ses événements sont gardés) et `"max_chunks": 10` (lire plus de texte sur une page très longue, 4 par défaut, environ 7 000 caractères chacun).
+- `"kind": "atelier"` : lieu qui propose des ateliers ou des stages sur demande, sans dates. Il apparaît dans l'onglet Ateliers (champ `note` = description) et n'est pas lu par le modèle.
+
+Retirer un site ou le passer en « atelier » supprime ses événements au prochain passage du script. Le résumé de chaque exécution indique, par source, combien d'événements ont été extraits et retenus.
 
 ## Tester vite
 
