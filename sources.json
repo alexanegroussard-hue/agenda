@@ -13,8 +13,11 @@
     {"id": "agendaculturel-44", "name": "Agenda culturel 44, expositions", "city": "Nantes", "scale": "moyen", "url": "https://44.agendaculturel.fr/exposition/nantes/"},
     {"id": "evous-nantes-musees", "name": "Evous Nantes, musées et expositions", "city": "Nantes", "scale": "moyen", "url": "https://nantes.evous.fr/musees/"},
     {"id": "evous-nantes-salons", "name": "Evous Nantes, salons", "city": "Nantes", "scale": "grand", "url": "https://nantes.evous.fr/salons/{mois}/"},
-    {"id": "ecole-design-nantes", "name": "École de design Nantes Atlantique", "city": "Nantes", "scale": "moyen", "url": "https://lecolededesign.com/en/news-events", "design_only": true},
     {"id": "beaux-arts-nantes", "name": "Beaux-Arts Nantes Saint-Nazaire", "city": "Nantes", "scale": "petit", "url": "https://beauxartsnantes.fr/fr/open-school/expositions", "venue": "Beaux-Arts Nantes Saint-Nazaire"},
-    {"id": "musee-imprimerie-nantes", "name": "Musée de l'imprimerie de Nantes", "city": "Nantes", "scale": "petit", "url": "https://musee-imprimerie.com/", "venue": "Musée de l'imprimerie de Nantes", "design_only": true}
+    {"id": "musee-imprimerie-nantes", "name": "Musée de l'imprimerie de Nantes", "city": "Nantes", "scale": "petit", "url": "https://musee-imprimerie.com/", "venue": "Musée de l'imprimerie de Nantes", "design_only": true},
+    {"id": "tour-taxis", "name": "Tour & Taxis", "city": "Bruxelles", "scale": "grand", "url": "https://tour-taxis.com/events/", "venue": "Tour & Taxis", "max_chunks": 6},
+    {"id": "neca-brussels", "name": "NECA, expositions d'art contemporain", "city": "Bruxelles", "scale": "moyen", "url": "https://neca.brussels/exhibitions", "max_chunks": 6},
+    {"id": "ixelles-expos", "name": "Commune d'Ixelles, expositions", "city": "Bruxelles", "scale": "petit", "url": "https://www.ixelles.be/site/agenda.php?type=7", "max_chunks": 6},
+    {"id": "atelier-dulcie-september", "name": "Atelier Dulcie September", "city": "Nantes", "scale": "petit", "url": "https://www.atelierdulcieseptember.fr/agenda-1", "venue": "Atelier Dulcie September"}
   ]
 }
