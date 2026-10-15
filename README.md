@@ -24,6 +24,15 @@ Contrôles appliqués à chaque événement trouvé par le modèle : dates valid
 
 Modifie `sources.json` : une entrée par site, avec `id`, `name`, `city` (Bruxelles ou Nantes), `scale` (indicatif), `url` de la page qui liste les événements. `{mois}` et `{annee}` dans l'URL sont remplacés par le mois en français et l'année en cours. Deux réglages facultatifs : `"design_only": true` pour un lieu entièrement consacré au design (tous ses événements sont gardés, sans filtre de sujet) et `"max_chunks": 10` pour lire plus de texte sur une page très longue (4 par défaut, environ 7 000 caractères chacun). Le résumé de chaque exécution indique, par source, combien d'événements le modèle a extraits, combien ont été retenus, combien de texte a été lu et des exemples d'événements écartés comme hors sujet.
 
+## Tester vite
+
+Dans l'onglet **Actions → Mise à jour de l'agenda → Run workflow**, trois réglages :
+- **only** : une ou plusieurs sources seulement (leurs `id`, séparés par des virgules). Un test sur une ou deux sources prend quelques minutes au lieu de plusieurs heures.
+- **force** : relit toutes les pages. Sans cette case, une page identique à celle de la semaine précédente n'est pas relue par le modèle, ce qui économise beaucoup de temps. Les événements déjà trouvés restent dans `events.json`.
+- **model** : `qwen2.5:7b` (plus fiable) ou `qwen2.5:3b` (environ deux fois plus rapide, un peu moins fiable).
+
+Le résumé de chaque exécution donne la durée de lecture de chaque source, pour voir où passe le temps.
+
 ## Ajouter un événement à la main
 
 Ajoute un objet dans `events.json` avec `"origin": "manual"` : le script ne le modifie ni ne le supprime. Champs : `id`, `title`, `city`, `category` (expo, salon, forum, conf, autre), `venue`, `address`, `start` et `end` (AAAA-MM-JJ), `days` (optionnel, jours d'ouverture, 0 = dimanche), `hours` (optionnel, `HH:MM-HH:MM`), `free`, `note`, `url`, `addedAt`.

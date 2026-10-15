@@ -11,6 +11,7 @@ Variables d'environnement utiles :
   OUT_DIR       dossier d'écriture (défaut : racine du dépôt)
 """
 import datetime as dt
+import hashlib
 import json
 import os
 import re
@@ -32,6 +33,8 @@ UA = "AgendaGraphismeBot/1.0 (+https://github.com/alexanegroussard-hue/agenda)"
 CHUNK_CHARS = 7000
 MAX_CHUNKS = 4
 KEEP_PAST_DAYS = 120
+ONLY = {x.strip() for x in os.environ.get("ONLY", "").split(",") if x.strip()}
+FORCE = os.environ.get("FORCE", "").strip().lower() in ("1", "true", "yes")
 MONTHS_FR = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet",
              "août", "septembre", "octobre", "novembre", "décembre"]
 
@@ -160,6 +163,17 @@ def chunks(text: str, limit: int = MAX_CHUNKS):
 
 # ---------------------------------------------------------------- modèle
 
+def scope_rule(source: dict) -> str:
+    """Faire omettre les événements hors sujet par le modèle réduit fortement le texte qu'il doit écrire,
+    et donc le temps de calcul (la génération est l'étape la plus lente sur processeur)."""
+    if source.get("design_only"):
+        return "- Liste tous les événements du lieu : il est entièrement consacré au design.\n"
+    return ("- Ne liste QUE les événements liés au graphisme ou au design (graphique, produit, mode, objet, "
+            "numérique), à la typographie, à l'affiche, à l'illustration, à l'édition, à l'impression, au motion "
+            "design ou à l'architecture d'intérieur. Omets tous les autres (concerts, théâtre, sport, cuisine, "
+            "brocantes, loisirs créatifs...) : ne les écris pas.\n")
+
+
 def build_prompt(source: dict, text: str, d: dt.date, end: dt.date) -> str:
     return (
         f"Date du jour : {d.isoformat()}. Source : {source['name']} ({source['city']}).\n"
@@ -170,9 +184,8 @@ def build_prompt(source: dict, text: str, d: dt.date, end: dt.date) -> str:
         "Pour un événement d'un seul jour, end = start.\n"
         "- hours : horaires d'ouverture au format HH:MM-HH:MM, sinon chaîne vide.\n"
         "- url : le lien de la page de l'événement s'il apparaît entre chevrons < > dans le texte, sinon chaîne vide.\n"
-        "- related_to_graphic_design : true seulement si l'événement concerne le graphisme, le design "
-        "(graphique, produit, mode, objet, numérique), la typographie, l'affiche, l'illustration, l'édition, "
-        "l'impression, le motion design ou l'architecture d'intérieur ; false sinon.\n"
+        + scope_rule(source) +
+        "- related_to_graphic_design : toujours true pour les événements que tu listes.\n"
         "- Si le texte ne contient aucun événement, renvoie {\"events\": []}.\n\n"
         f"TEXTE DE LA PAGE :\n{text}"
     )
@@ -276,18 +289,34 @@ def main() -> int:
     if events_path.exists():
         existing = json.loads(events_path.read_text(encoding="utf-8")).get("events", [])
 
+    if ONLY:
+        sources = [s for s in sources if s["id"] in ONLY]
+        if not sources:
+            print("Aucune source ne correspond à ONLY=" + ",".join(sorted(ONLY)))
+            return 1
+    cache_path = OUT_DIR / "page-cache.json"
+    cache = json.loads(cache_path.read_text(encoding="utf-8")) if cache_path.exists() else {}
+    pending: dict = {}
+    t_start = time.time()
+
     found: dict = {}
     report = []
-    failed = 0
+    failed = skipped = 0
     rejected_total: dict = {}
 
     for s in sources:
+        t0 = time.time()
         s = dict(s)
         s["_url"] = s["url"].replace("{mois}", MONTHS_FR[d.month - 1]).replace("{annee}", str(d.year))
         try:
             text = page_text(fetch(s, s["_url"]), s["_url"])
             if len(text) < 200:
                 raise RuntimeError("page presque vide")
+            digest = hashlib.sha256(f"{text}|{wend.isoformat()[:7]}|{MODEL}".encode()).hexdigest()
+            if not FORCE and cache.get(s["id"]) == digest:
+                skipped += 1
+                report.append(f"- INCHANGÉE {s['id']} : page identique à la dernière lecture, non relue")
+                continue
             text_norm = norm(text)
             accepted = returned = 0
             parts = chunks(text, int(s.get("max_chunks", MAX_CHUNKS)))
@@ -308,8 +337,9 @@ def main() -> int:
                     if k not in found or richness(ev) > richness(found[k]):
                         found[k] = ev
                     accepted += 1
+            pending[s["id"]] = (digest, returned)
             line = (f"- OK {s['id']} : {accepted} retenu(s) sur {returned} extrait(s) par le modèle ; "
-                    f"texte lu : {read_chars} sur {len(text)} caractères")
+                    f"texte lu : {read_chars} sur {len(text)} caractères ; durée : {int(time.time() - t0)} s")
             if rej_here:
                 line += " ; rejets : " + ", ".join(f"{k} ×{v}" for k, v in sorted(rej_here.items()))
             if samples:
@@ -322,10 +352,18 @@ def main() -> int:
     ok_sources = len(sources) - failed
     stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     problems = []
-    if not found:
+    if not found and skipped == 0:
         problems.append("aucun événement retenu : events.json n'a pas été modifié")
     if failed > len(sources) / 2:
         problems.append(f"{failed} sources sur {len(sources)} en échec")
+
+    # Une page n'est mémorisée comme « lue » que si le modèle a bien répondu (au moins une réponse non vide
+    # dans cette exécution), pour qu'un modèle défaillant ne fasse pas sauter des pages la semaine suivante.
+    model_ok = any(r > 0 for _, r in pending.values())
+    for sid, (dg, r) in pending.items():
+        if r > 0 or model_ok:
+            cache[sid] = dg
+    cache_path.write_text(json.dumps(cache, indent=0, sort_keys=True) + "\n", encoding="utf-8")
 
     if found:
         merged = {}
@@ -354,6 +392,8 @@ def main() -> int:
     (OUT_DIR / "last-run.json").write_text(
         json.dumps({"lastRun": stamp, "sourcesOk": ok_sources, "sourcesFailed": failed}) + "\n", encoding="utf-8")
 
+    report.append(f"Sources relues : {len(sources) - failed - skipped} · inchangées : {skipped} · en échec : {failed} "
+                  f"· durée du script : {int((time.time() - t_start) / 60)} min")
     if rejected_total:
         report.append("Rejets par les contrôles : " + ", ".join(f"{k} ×{v}" for k, v in sorted(rejected_total.items())))
     for p in problems:

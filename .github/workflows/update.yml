@@ -4,6 +4,19 @@ on:
   schedule:
     - cron: "47 0 * * 0"    # chaque dimanche, 00:47 UTC (02:47 en été, 01:47 en hiver, heure de Paris)
   workflow_dispatch:         # permet de lancer la mise à jour à la main depuis l'onglet Actions
+    inputs:
+      only:
+        description: "Lire seulement ces sources (ids séparés par des virgules, ex. tour-taxis,ixelles-expos). Vide = toutes."
+        required: false
+        default: ""
+      force:
+        description: "Relire toutes les pages, même celles qui n'ont pas changé"
+        type: boolean
+        default: false
+      model:
+        description: "Modèle Ollama (qwen2.5:7b plus fiable, qwen2.5:3b environ deux fois plus rapide)"
+        required: false
+        default: "qwen2.5:7b"
 
 permissions:
   contents: write
@@ -18,7 +31,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 300
     env:
-      MODEL: qwen2.5:7b
+      MODEL: ${{ github.event.inputs.model || 'qwen2.5:7b' }}
       OLLAMA_MODELS: /home/runner/ollama-models
     steps:
       - uses: actions/checkout@v4
@@ -45,6 +58,9 @@ jobs:
           ollama pull "$MODEL"
 
       - name: Mettre à jour events.json
+        env:
+          ONLY: ${{ github.event.inputs.only }}
+          FORCE: ${{ github.event.inputs.force }}
         run: python scripts/update.py
 
       - name: Enregistrer les changements
@@ -52,7 +68,9 @@ jobs:
         run: |
           git config user.name "agenda-bot"
           git config user.email "agenda-bot@users.noreply.github.com"
-          git add events.json last-run.json
+          for f in events.json last-run.json page-cache.json; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
           git diff --cached --quiet || git commit -m "Mise à jour automatique de l'agenda"
           git pull --rebase -X theirs origin main
           git push
