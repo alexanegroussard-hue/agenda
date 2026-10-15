@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-15T00:17:24Z",
+ "updated": "2026-10-15T11:56:15Z",
  "events": [
   {
    "title": "Le livre d'artiste concours et exposition",
@@ -126,6 +126,53 @@
    "addedAt": "2026-10-14"
   },
   {
+   "title": "Alluvions",
+   "city": "Bruxelles",
+   "category": "expo",
+   "venue": "",
+   "address": "",
+   "start": "2026-10-15",
+   "end": "2026-11-08",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?evenId=23855",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "id": "alluvions-2026-10-15",
+   "addedAt": "2026-10-15"
+  },
+  {
+   "title": "Jeanne Saboureault - En chemin - Illustration",
+   "city": "Bruxelles",
+   "category": "expo",
+   "venue": "",
+   "address": "",
+   "start": "2026-10-15",
+   "end": "2026-11-14",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?evenId=23785",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "hours": "10:00-18:00",
+   "id": "jeanne-saboureault-en-chemin-illustration-2026-10-15",
+   "addedAt": "2026-10-15"
+  },
+  {
+   "title": "L'horizon est une abstraction",
+   "city": "Bruxelles",
+   "category": "expo",
+   "venue": "",
+   "address": "",
+   "start": "2026-10-15",
+   "end": "2026-11-14",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?evenId=23913",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "hours": "10:00-18:00",
+   "id": "l-horizon-est-une-abstraction-2026-10-15",
+   "addedAt": "2026-10-15"
+  },
+  {
    "title": "La taille douce, gravure sur cuivre",
    "city": "Nantes",
    "category": "expo",
@@ -141,6 +188,22 @@
    "addedAt": "2026-10-14"
   },
   {
+   "title": "Matthäus- Passion Edgar Sarin",
+   "city": "Bruxelles",
+   "category": "expo",
+   "venue": "",
+   "address": "",
+   "start": "2026-10-15",
+   "end": "2027-01-17",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?evenId=23800",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "hours": "16:00-19:00",
+   "id": "matthaus-passion-edgar-sarin-2026-10-15",
+   "addedAt": "2026-10-15"
+  },
+  {
    "title": "Variable(s) pictural",
    "city": "Nantes",
    "category": "expo",
@@ -154,6 +217,22 @@
    "origin": "auto",
    "id": "variable-s-pictural-2026-10-15",
    "addedAt": "2026-10-14"
+  },
+  {
+   "title": "Minimal processes of change",
+   "city": "Bruxelles",
+   "category": "expo",
+   "venue": "",
+   "address": "",
+   "start": "2026-10-16",
+   "end": "2026-11-28",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?evenId=23972",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "hours": "10:00-18:00",
+   "id": "minimal-processes-of-change-2026-10-16",
+   "addedAt": "2026-10-15"
   },
   {
    "title": "Calligraphie latine adultes initiés",
@@ -201,6 +280,22 @@
    "addedAt": "2026-10-14"
   },
   {
+   "title": "L'image élargie",
+   "city": "Bruxelles",
+   "category": "expo",
+   "venue": "",
+   "address": "",
+   "start": "2026-11-05",
+   "end": "2026-11-29",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?evenId=23967",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "hours": "17:00-20:00",
+   "id": "l-image-elargie-2026-11-05",
+   "addedAt": "2026-10-15"
+  },
+  {
    "title": "CHILDREN’S ARTS DAY – “ME AND …” CREATE A BOOK THAT’S ALL ABOUT YOU",
    "city": "Bruxelles",
    "category": "expo",
@@ -229,6 +324,22 @@
    "origin": "auto",
    "id": "cine-design-identity-a-czech-graphic-design-love-story-2026-11-15",
    "addedAt": "2026-10-14"
+  },
+  {
+   "title": "Kiro URDIN : Au delà du Réel",
+   "city": "Bruxelles",
+   "category": "expo",
+   "venue": "",
+   "address": "",
+   "start": "2026-11-20",
+   "end": "2026-12-20",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?evenId=23957",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "hours": "10:00-18:00",
+   "id": "kiro-urdin-au-dela-du-reel-2026-11-20",
+   "addedAt": "2026-10-15"
   }
  ]
 }
