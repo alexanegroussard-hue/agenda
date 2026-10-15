@@ -22,7 +22,7 @@ Contrôles appliqués à chaque événement trouvé par le modèle : dates valid
 
 ## Ajouter ou retirer un site
 
-Modifie `sources.json` : une entrée par site, avec `id`, `name`, `city` (Bruxelles ou Nantes), `scale` (indicatif), `url` de la page qui liste les événements. `{mois}` et `{annee}` dans l'URL sont remplacés par le mois en français et l'année en cours.
+Modifie `sources.json` : une entrée par site, avec `id`, `name`, `city` (Bruxelles ou Nantes), `scale` (indicatif), `url` de la page qui liste les événements. `{mois}` et `{annee}` dans l'URL sont remplacés par le mois en français et l'année en cours. Deux réglages facultatifs : `"design_only": true` pour un lieu entièrement consacré au design (tous ses événements sont gardés, sans filtre de sujet) et `"max_chunks": 10` pour lire plus de texte sur une page très longue (4 par défaut, environ 7 000 caractères chacun). Le résumé de chaque exécution indique, par source, combien d'événements le modèle a extraits, combien ont été retenus, combien de texte a été lu et des exemples d'événements écartés comme hors sujet.
 
 ## Ajouter un événement à la main
 

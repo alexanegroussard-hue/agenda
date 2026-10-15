@@ -35,6 +35,12 @@ KEEP_PAST_DAYS = 120
 MONTHS_FR = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet",
              "août", "septembre", "octobre", "novembre", "décembre"]
 
+# Mots qui sauvent un événement que le modèle aurait jugé hors sujet (comparés au titre normalisé).
+DESIGN_WORDS = re.compile(
+    r"graphi|design|typo|affiche|poster|illustr|imprim|print|calligraph|livre d artiste|motion"
+    r"|serigraph|gravure|lettrage|identite visuelle|bande dessinee|fanzine|\bzine|packaging"
+)
+
 SCHEMA = {
     "type": "object",
     "properties": {
@@ -140,7 +146,7 @@ def page_text(html: str, base: str) -> str:
     return "\n".join(l for l in lines if l)
 
 
-def chunks(text: str):
+def chunks(text: str, limit: int = MAX_CHUNKS):
     out, cur = [], ""
     for line in text.split("\n"):
         if len(cur) + len(line) + 1 > CHUNK_CHARS and cur:
@@ -149,7 +155,7 @@ def chunks(text: str):
         cur += line[:CHUNK_CHARS] + "\n"
     if cur:
         out.append(cur)
-    return out[:MAX_CHUNKS]
+    return out[:limit]
 
 
 # ---------------------------------------------------------------- modèle
@@ -207,7 +213,9 @@ def clean_event(raw: dict, source: dict, text_norm: str, d: dt.date, wend: dt.da
     title = re.sub(r"\s+", " ", str(raw.get("title", ""))).strip()
     if not (3 <= len(title) <= 140):
         return None, "titre invalide"
-    if raw.get("related_to_graphic_design") is not True:
+    if (raw.get("related_to_graphic_design") is not True
+            and not source.get("design_only")
+            and not DESIGN_WORDS.search(norm(title))):
         return None, "hors sujet"
     start = parse_date(raw.get("start"))
     if not start:
@@ -281,18 +289,32 @@ def main() -> int:
             if len(text) < 200:
                 raise RuntimeError("page presque vide")
             text_norm = norm(text)
-            accepted = 0
-            for part in chunks(text):
+            accepted = returned = 0
+            parts = chunks(text, int(s.get("max_chunks", MAX_CHUNKS)))
+            read_chars = sum(len(p) for p in parts)
+            rej_here: dict = {}
+            samples: list = []
+            for part in parts:
                 for raw in call_llm(s, build_prompt(s, part, d, wend)):
+                    returned += 1
                     ev, why = clean_event(raw, s, text_norm, d, wend)
                     if ev is None:
                         rejected_total[why] = rejected_total.get(why, 0) + 1
+                        rej_here[why] = rej_here.get(why, 0) + 1
+                        if why == "hors sujet" and len(samples) < 5:
+                            samples.append(str(raw.get("title", ""))[:60])
                         continue
                     k = event_key(ev)
                     if k not in found or richness(ev) > richness(found[k]):
                         found[k] = ev
                     accepted += 1
-            report.append(f"- OK {s['id']} : {accepted} événement(s) retenu(s)")
+            line = (f"- OK {s['id']} : {accepted} retenu(s) sur {returned} extrait(s) par le modèle ; "
+                    f"texte lu : {read_chars} sur {len(text)} caractères")
+            if rej_here:
+                line += " ; rejets : " + ", ".join(f"{k} ×{v}" for k, v in sorted(rej_here.items()))
+            if samples:
+                line += " ; exemples hors sujet : " + " / ".join(samples)
+            report.append(line)
         except Exception as e:  # une source en panne ne bloque pas les autres
             failed += 1
             report.append(f"- ÉCHEC {s['id']} : {type(e).__name__}: {e}")
