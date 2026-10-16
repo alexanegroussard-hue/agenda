@@ -55,7 +55,7 @@ SCHEMA = {
                 "type": "object",
                 "properties": {
                     "title": {"type": "string"},
-                    "category": {"type": "string", "enum": ["expo", "salon", "forum", "conf", "autre"]},
+                    "category": {"type": "string", "enum": ["expo", "festival", "salon", "forum", "conf", "autre"]},
                     "venue": {"type": "string"},
                     "city": {"type": "string"},
                     "address": {"type": "string"},
@@ -185,6 +185,7 @@ def build_prompt(source: dict, text: str, d: dt.date, end: dt.date) -> str:
         "Règles :\n"
         "- Dates au format AAAA-MM-JJ. Si l'année n'est pas écrite, prends l'année de la date du jour. "
         "Pour un événement d'un seul jour, end = start.\n"
+        "- category : \"festival\" pour un festival, une biennale ou une semaine du design ; sinon expo, salon, forum, conf ou autre.\n"
         "- city : la ville où se déroule l'événement, telle qu'elle est écrite dans le texte, sinon chaîne vide.\n"
         "- hours : horaires d'ouverture au format HH:MM-HH:MM, sinon chaîne vide.\n"
         "- url : le lien de la page de l'événement s'il apparaît entre chevrons < > dans le texte, sinon chaîne vide.\n"
@@ -256,7 +257,7 @@ def clean_event(raw: dict, source: dict, text_norm: str, d: dt.date, wend: dt.da
     url = str(raw.get("url", "")).strip()
     if not url.startswith("https://"):
         url = source["_url"]
-    category = raw.get("category") if raw.get("category") in ("expo", "salon", "forum", "conf", "autre") else "autre"
+    category = raw.get("category") if raw.get("category") in ("expo", "festival", "salon", "forum", "conf", "autre") else "autre"
     city = re.sub(r"\s+", " ", str(raw.get("city") or "")).strip()[:60]
     if city and norm(city) not in text_norm:
         city = ""  # ville absente de la page : on ne la garde pas

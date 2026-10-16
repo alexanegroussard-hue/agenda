@@ -191,6 +191,21 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
 .ev.low { opacity: .55; }
 @media (pointer: coarse) { .mk { padding: 10px; } .marks { margin-block: -12px; margin-right: -6px; } }
 
+/* ---------- Bandeau festivals ---------- */
+.fest { border: 1.5px solid var(--ink); border-radius: 6px; background: var(--card); padding: 12px 16px 14px; display: flex; flex-direction: column; gap: 12px; }
+.fest-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.fest-head h2 { font-family: var(--f-display); font-weight: 700; font-size: 20px; letter-spacing: -.01em; margin: 0; }
+.fest-head .count { font-family: var(--f-mono); font-size: 12.5px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.fest-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 12px 20px; }
+.fi { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 6px; border-left: 4px solid var(--spot, var(--rule)); padding-left: 11px; }
+.fi.low { opacity: .55; }
+.fi .when { grid-column: 1 / -1; font-size: 13px; }
+.fi .ttl { font-family: var(--f-display); font-weight: 700; font-size: 17px; line-height: 1.2; letter-spacing: -.01em; text-decoration: none; overflow-wrap: anywhere; }
+.fi a.ttl:hover { text-decoration: underline; }
+.fi .line { grid-column: 1 / -1; font-size: 13px; }
+.fi .marks { margin-block: -4px 0; align-self: start; }
+.fi .live { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); }
+
 /* ---------- Pays : une couleur par pays ---------- */
 .be { --spot: var(--be); } .fr { --spot: var(--fr); } .uk { --spot: var(--uk); } .es { --spot: var(--es); } .xx { --spot: var(--xx); }
 .dot { background: var(--spot, var(--muted)); }
@@ -237,6 +252,7 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
       <div class="chips" data-role="country" role="group" aria-label="Pays"></div>
     </div>
     <div class="results">
+      <section class="fest" id="fest" aria-label="Festivals importants" hidden></section>
       <p class="range" id="range"></p>
       <div id="out" class="cols" aria-live="polite"><div class="state"><b>Chargement du programme</b>Les événements s'affichent dans un instant.</div></div>
     </div>
@@ -288,7 +304,7 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
   "use strict";
   var MONTHS = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
   var DOW = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
-  var CATS = { expo: "Expo", salon: "Salon", forum: "Forum", conf: "Conférence", autre: "Événement" };
+  var CATS = { expo: "Expo", festival: "Festival", salon: "Salon", forum: "Forum", conf: "Conférence", autre: "Événement" };
   var COUNTRIES = ["France", "Belgique", "Angleterre", "Espagne", "Autres"];
   var CC = { France: "fr", Belgique: "be", Angleterre: "uk", Espagne: "es", Autres: "xx" };
   var TZ = { France: "Europe/Paris", Belgique: "Europe/Brussels", Angleterre: "Europe/London", Espagne: "Europe/Madrid" };
@@ -298,7 +314,7 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     var m = /^([^.]+)\.github\.io$/.exec(location.hostname), p = location.pathname.split("/")[1];
     return (m && p) ? { owner: m[1], name: p } : { owner: "alexanegroussard-hue", name: "agenda" };
   })();
-  var state = { events: [], archive: [], deleted: [], marks: {}, period: "week", country: "", archView: "past", sources: null, meta: null };
+  var state = { events: [], archive: [], deleted: [], marks: {}, festAll: false, period: "week", country: "", archView: "past", sources: null, meta: null };
 
   function pad(n) { return (n < 10 ? "0" : "") + n; }
   function iso(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
@@ -445,7 +461,40 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     });
   }
   function empty(box, title, text) { box.appendChild(h("div", { class: "state" }, [h("b", { text: title }), text || ""])); }
+  /* ---------- Bandeau « festivals importants » ---------- */
+  var FEST_RE = /festival|biennale|triennale|design week/i;
+  function isFestival(e) { return e.category === "festival" || FEST_RE.test(e.title || ""); }
+  function festRank(e) { var m = state.marks[markKey(e)]; return m === "fav" ? 0 : m === "low" ? 2 : 1; }
+  function renderFest() {
+    var box = $("fest"), t = today();
+    var all = state.events.filter(function (e) {
+      var b = parse(e.end) || parse(e.start);
+      return b && b >= t && isFestival(e) && !isDeleted(e) && countryOk(e);
+    }).sort(function (x, y) { return festRank(x) - festRank(y) || x.start.localeCompare(y.start) || x.title.localeCompare(y.title); });
+    box.textContent = "";
+    if (!all.length) { box.hidden = true; return; }
+    box.hidden = false;
+    var top = all.filter(function (e) { return festRank(e) < 2; }).slice(0, 3);
+    var list = state.festAll ? all : (top.length ? top : all.slice(0, 3));
+    var head = h("div", { class: "fest-head" }, [h("h2", {}, ["Festivals importants", h("span", { class: "count", text: state.festAll ? String(all.length) : list.length + " sur " + all.length })])]);
+    if (all.length > list.length || state.festAll) {
+      head.appendChild(h("button", { class: "btn ghost", type: "button", "aria-expanded": String(state.festAll), text: state.festAll ? "Réduire" : "Voir tout (" + all.length + ")", onclick: function () { state.festAll = !state.festAll; renderFest(); } }));
+    }
+    var l = h("div", { class: "fest-list" });
+    list.forEach(function (e) {
+      var m = state.marks[markKey(e)], url = safeUrl(e.url), a = parse(e.start), live = a <= t;
+      var where = [e.city, e.venue].filter(Boolean).join(" · ");
+      l.appendChild(h("article", { class: "fi " + cls(countryOf(e)) + (m === "low" ? " low" : "") }, [
+        h("div", { class: "when", text: whenLabel(e) + (live ? " · en cours" : "") }),
+        url ? h("a", { class: "ttl", target: "_blank", rel: "noopener", href: url, text: e.title }) : h("span", { class: "ttl", text: e.title }),
+        h("span", { class: "marks" }, [markBtn("fav", "Favori", m === "fav", function () { setMark(e, "fav"); })]),
+        where ? h("div", { class: "line", text: where }) : null
+      ]));
+    });
+    box.appendChild(head); box.appendChild(l);
+  }
   function renderAgenda() {
+    renderFest();
     var r = range(), out = $("out");
     out.textContent = "";
     if (!r) { empty(out, "Choisis deux dates"); return; }
