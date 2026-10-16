@@ -19,6 +19,7 @@
     {"id":"neca-brussels","name":"NECA, expositions d'art contemporain","city":"Bruxelles","scale":"moyen","url":"https://neca.brussels/exhibitions","max_chunks":6,"country":"Belgique"},
     {"id":"ixelles-expos","name":"Commune d'Ixelles, expositions","city":"Bruxelles","scale":"petit","url":"https://www.ixelles.be/site/agenda.php?type=7","max_chunks":6,"country":"Belgique"},
     {"id":"atelier-dulcie-september","name":"Atelier Dulcie September","city":"Nantes","scale":"petit","url":"https://www.atelierdulcieseptember.fr/agenda-1","kind":"atelier","note":"Atelier d'artistes : stages et ateliers, voir l'agenda du site.","country":"France"},
-    {"name":"cnap","url":"https://www.cnap.fr/agenda","city":"Nantes","id":"cnap","scale":"petit","country":"France"}
+    {"name":"cnap","url":"https://www.cnap.fr/agenda","city":"Nantes","id":"cnap","scale":"petit","country":"France"},
+    {"name":"Baratin Art","url":"https://www.baratin.art/exposition/","city":"Autres","country":"France","id":"baratin-art","scale":"petit"}
   ]
 }
