@@ -15,6 +15,7 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 import unicodedata
@@ -294,6 +295,35 @@ def richness(ev: dict) -> int:
 
 # ---------------------------------------------------------------- principal
 
+_last_push = [0.0]
+
+
+def write_progress(total: int, done: int, current: str, t_start: float, state: str = "running", push: bool = True) -> None:
+    """Écrit progress.json (avancement approximatif) et, sur GitHub Actions, le publie au plus toutes les 4 minutes."""
+    elapsed = time.time() - t_start
+    remaining = int(elapsed / done * (total - done)) if done else None
+    data = {"state": state, "total": total, "done": done, "current": current,
+            "startedAt": dt.datetime.fromtimestamp(t_start, dt.timezone.utc).isoformat(timespec="seconds"),
+            "updatedAt": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+            "elapsedSec": int(elapsed), "remainingSec": remaining}
+    (OUT_DIR / "progress.json").write_text(json.dumps(data, ensure_ascii=False) + "\n", encoding="utf-8")
+    if not push or not os.environ.get("GITHUB_ACTIONS"):
+        return
+    if state == "running" and time.time() - _last_push[0] < 240 and done:
+        return
+    _last_push[0] = time.time()
+    try:
+        run = lambda *a: subprocess.run(a, cwd=OUT_DIR, check=True, capture_output=True, timeout=60)
+        run("git", "config", "user.name", "agenda-bot")
+        run("git", "config", "user.email", "agenda-bot@users.noreply.github.com")
+        run("git", "add", "progress.json")
+        run("git", "commit", "-m", f"Progression : {done}/{total}")
+        run("git", "pull", "--rebase", "-X", "theirs", "origin", "main")
+        run("git", "push")
+    except Exception as e:  # la progression est facultative
+        print(f"(progression non publiée : {e})")
+
+
 def main() -> int:
     d, wend = today(), window_end(today())
     all_sources = json.loads((ROOT / "sources.json").read_text(encoding="utf-8"))["sources"]
@@ -332,7 +362,8 @@ def main() -> int:
     failed = skipped = 0
     rejected_total: dict = {}
 
-    for s in sources:
+    for si, s in enumerate(sources):
+        write_progress(len(sources), si, s["id"], t_start)
         t0 = time.time()
         s = dict(s)
         s["_url"] = s["url"].replace("{mois}", MONTHS_FR[d.month - 1]).replace("{annee}", str(d.year))
@@ -438,6 +469,7 @@ def main() -> int:
                           key=lambda e: (e.get("end", ""), e.get("title", "")), reverse=True)
         arch_path.write_text(json.dumps({"events": arch_out}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         report.append(f"\nAjoutés : {added} · modifiés : {updated} · total dans le fichier : {len(out)}")
+    write_progress(len(sources), len(sources), "", t_start, "done", push=False)
     (OUT_DIR / "last-run.json").write_text(
         json.dumps({"lastRun": stamp, "sourcesOk": ok_sources, "sourcesFailed": failed}) + "\n", encoding="utf-8")
 

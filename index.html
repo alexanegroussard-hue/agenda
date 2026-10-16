@@ -96,6 +96,11 @@ input, select, textarea { font: inherit; font-size: 16px; color: var(--ink); bac
 input[type=checkbox] { width: 18px; height: 18px; padding: 0; }
 .state { border: 1.5px dashed var(--rule); border-radius: 6px; padding: 22px 18px; color: var(--muted); }
 .state b { color: var(--ink); display: block; font-family: var(--f-display); font-size: 18px; margin-bottom: 4px; }
+.prog { margin: 0 0 14px; padding: 10px 14px; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.prog[hidden] { display: none; }
+.prog .pt { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--ink); }
+.prog .bar { height: 6px; margin: 8px 0 6px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+.prog .bar i { display: block; height: 100%; width: 0; background: var(--fr); border-radius: 3px; transition: width .6s; }
 .foot { font-family: var(--f-mono); font-size: 12px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 12px; }
 .help { font-size: 14px; color: var(--muted); margin: 0; }
 .form { background: var(--card); border: 1.5px solid var(--ink); border-radius: 6px; padding: 14px; display: grid; gap: 12px; }
@@ -239,6 +244,12 @@ a.fi1:hover .t { text-decoration: underline; }
     <div class="kicker" id="kick"><span>Graphisme &amp; design</span></div>
     <h1>Graphenda</h1>
   </header>
+
+  <section class="prog" id="prog" aria-live="polite" hidden>
+    <div class="pt"><b>Mise à jour en cours</b><span id="prog-n"></span></div>
+    <div class="bar"><i id="prog-bar"></i></div>
+    <div id="prog-t"></div>
+  </section>
 
   <div class="tabs" role="tablist">
     <button type="button" role="tab" id="t-agenda" aria-selected="true">Agenda</button>
@@ -791,6 +802,33 @@ a.fi1:hover .t { text-decoration: underline; }
   }
   loadLive("deleted.json").then(function (d) { state.deleted = d.events || []; renderAll(); }).catch(function () {});
   loadLive("marks.json").then(function (d) { state.marks = d.marks || {}; renderAgenda(); }).catch(function () {});
+  /* ---------- Progression de la mise à jour (approximative) ---------- */
+  function fmtDur(sec) {
+    var m = Math.max(1, Math.round(sec / 60));
+    if (m < 60) return m + " min";
+    var h = Math.floor(m / 60), r = m % 60;
+    return h + " h" + (r ? " " + (r < 10 ? "0" : "") + r : "");
+  }
+  function renderProgress(p) {
+    var box = $("prog");
+    var fresh = p && p.state === "running" && (Date.now() - Date.parse(p.updatedAt)) < 45 * 60 * 1000;
+    if (!fresh) { box.hidden = true; return false; }
+    var pct = p.total ? Math.round(100 * p.done / p.total) : 0;
+    $("prog-n").textContent = p.done + " / " + p.total + " sources · " + pct + " %";
+    $("prog-bar").style.width = Math.max(pct, 2) + "%";
+    var sinceUpdate = Math.max(0, (Date.now() - Date.parse(p.updatedAt)) / 1000);
+    var left = p.remainingSec == null ? null : Math.max(0, p.remainingSec - sinceUpdate);
+    $("prog-t").textContent = (left == null ? "Estimation du temps restant après la première source" : "Environ " + fmtDur(left) + " restantes (estimation)")
+      + (p.current ? " · lecture : " + p.current : "");
+    box.hidden = false;
+    return true;
+  }
+  function pollProgress() {
+    load("progress.json").then(function (p) {
+      if (renderProgress(p)) setTimeout(pollProgress, 60000);
+    }).catch(function () { $("prog").hidden = true; });
+  }
+  pollProgress();
   renderAll();
 })();
 </script>
