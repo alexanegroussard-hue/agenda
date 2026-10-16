@@ -170,7 +170,7 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
   .tabs button { flex: 1; min-height: 58px; margin: 0; padding: 8px 0; font-size: 17px; border-bottom: 0; border-top: 4px solid transparent; margin-top: -2px; }
   .tabs button[aria-selected="true"] { border-top-color: var(--ink); }
   .foot { font-size: 11px; }
-  #range, #fest, .kicker { display: none; }
+  #range, #fest, .kicker, .filters .dates { display: none; }
   .ev.dated { grid-template-columns: 46px minmax(0, 1fr); gap: 0 12px; }
   .day b { font-size: 31px; }
   .ev h3 { font-size: 19px; }
@@ -481,8 +481,13 @@ a.fi1:hover .t { text-decoration: underline; }
       return b && b >= t && isFestival(e) && !isDeleted(e) && countryOk(e);
     }).sort(function (x, y) { return festRank(x) - festRank(y) || x.start.localeCompare(y.start) || x.title.localeCompare(y.title); });
     box.textContent = "";
-    if (!all.length) { box.hidden = true; return; }
     box.hidden = false;
+    if (!all.length) {
+      box.className = "fest one";
+      box.appendChild(h("h2", { text: "Festivals", title: "Festivals importants" }));
+      box.appendChild(h("span", { class: "line", text: "Aucun festival repéré pour l'instant. Le modèle les classe à chaque mise à jour." }));
+      return;
+    }
     var top = all.filter(function (e) { return festRank(e) < 2; }).slice(0, 3);
     var shown = top.length ? top : all.slice(0, 3);
     var more = all.length > shown.length;
