@@ -32,7 +32,7 @@ MODEL = os.environ.get("MODEL", "qwen2.5:7b")
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 UA = "GraphendaBot/1.0 (+https://github.com/alexanegroussard-hue/agenda)"
 CHUNK_CHARS = 7000
-MAX_CHUNKS = 4
+MAX_CHUNKS = 3
 KEEP_PAST_DAYS = 120
 ARCHIVE_DAYS = 730
 CITY_COUNTRY = {"Bruxelles": "Belgique", "Nantes": "France"}
@@ -204,7 +204,7 @@ def call_llm(source: dict, prompt: str) -> list:
         f"{OLLAMA_URL}/api/chat",
         json={
             "model": MODEL, "stream": False, "format": SCHEMA,
-            "options": {"temperature": 0, "num_ctx": 8192},
+            "options": {"temperature": 0, "num_ctx": 8192, "num_predict": 3000},
             "messages": [{"role": "system", "content": SYSTEM}, {"role": "user", "content": prompt}],
         },
         timeout=2400,

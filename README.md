@@ -25,7 +25,7 @@ Contrôles appliqués à chaque événement trouvé par le modèle : dates valid
 Le plus simple : onglet **Sources** de la page (Ajouter un site, Modifier, Retirer). Pour que la page puisse enregistrer, il faut la première fois coller sur chaque appareil un jeton GitHub (explications dans l'encadré de l'onglet : jeton « fine-grained » limité au dépôt `agenda`, permission Contents en lecture et écriture). Sans jeton, la page garde la modification le temps de la visite et propose de télécharger `sources.json`.
 
 On peut aussi modifier `sources.json` à la main : une entrée par site, avec `id`, `name`, `country` (France, Belgique, Angleterre, Espagne ou Autres), `scale` (indicatif), `url`. `{mois}` et `{annee}` dans l'URL sont remplacés par le mois en français et l'année en cours.
-- Sans `kind` : site d'agenda, lu chaque dimanche par le modèle. Réglages facultatifs : `"design_only": true` (lieu entièrement consacré au design, tous ses événements sont gardés) et `"max_chunks": 10` (lire plus de texte sur une page très longue, 4 par défaut, environ 7 000 caractères chacun).
+- Sans `kind` : site d'agenda, lu chaque dimanche par le modèle. Réglages facultatifs : `"design_only": true` (lieu entièrement consacré au design, tous ses événements sont gardés) et `"max_chunks": 10` (lire plus de texte sur une page très longue, 3 par défaut, environ 7 000 caractères chacun).
 - `"kind": "atelier"` : lieu qui propose des ateliers ou des stages sur demande, sans dates. Il apparaît dans l'onglet Ateliers (champ `note` = description) et n'est pas lu par le modèle.
 
 Retirer un site ou le passer en « atelier » supprime ses événements au prochain passage du script. Le résumé de chaque exécution indique, par source, combien d'événements ont été extraits et retenus.
@@ -35,7 +35,7 @@ Retirer un site ou le passer en « atelier » supprime ses événements au proch
 Dans l'onglet **Actions → Mise à jour de Graphenda → Run workflow**, trois réglages :
 - **only** : une ou plusieurs sources seulement (leurs `id`, séparés par des virgules). Un test sur une ou deux sources prend quelques minutes au lieu de plusieurs heures.
 - **force** : relit toutes les pages. Sans cette case, une page identique à celle de la semaine précédente n'est pas relue par le modèle, ce qui économise beaucoup de temps. Les événements déjà trouvés restent dans `events.json`.
-- **model** : `qwen2.5:7b` (plus fiable) ou `qwen2.5:3b` (environ deux fois plus rapide, un peu moins fiable).
+- **model** : `qwen2.5:3b` (par défaut, rapide) ou `qwen2.5:7b` (plus fiable, environ deux fois plus lent).
 
 Le résumé de chaque exécution donne la durée de lecture de chaque source, pour voir où passe le temps.
 

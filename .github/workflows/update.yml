@@ -14,9 +14,9 @@ on:
         type: boolean
         default: false
       model:
-        description: "Modèle Ollama (qwen2.5:7b plus fiable, qwen2.5:3b environ deux fois plus rapide)"
+        description: "Modèle Ollama (qwen2.5:3b plus rapide, qwen2.5:7b plus fiable mais environ deux fois plus lent)"
         required: false
-        default: "qwen2.5:7b"
+        default: "qwen2.5:3b"
 
 permissions:
   contents: write
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 360
     env:
-      MODEL: ${{ github.event.inputs.model || 'qwen2.5:7b' }}
+      MODEL: ${{ github.event.inputs.model || 'qwen2.5:3b' }}
       OLLAMA_MODELS: /home/runner/ollama-models
     steps:
       - uses: actions/checkout@v4
