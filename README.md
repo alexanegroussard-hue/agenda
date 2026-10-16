@@ -24,7 +24,7 @@ Contrôles appliqués à chaque événement trouvé par le modèle : dates valid
 
 Le plus simple : onglet **Sources** de la page (Ajouter un site, Modifier, Retirer). Pour que la page puisse enregistrer, il faut la première fois coller sur chaque appareil un jeton GitHub (explications dans l'encadré de l'onglet : jeton « fine-grained » limité au dépôt `agenda`, permission Contents en lecture et écriture). Sans jeton, la page garde la modification le temps de la visite et propose de télécharger `sources.json`.
 
-On peut aussi modifier `sources.json` à la main : une entrée par site, avec `id`, `name`, `city` (Bruxelles ou Nantes), `scale` (indicatif), `url`. `{mois}` et `{annee}` dans l'URL sont remplacés par le mois en français et l'année en cours.
+On peut aussi modifier `sources.json` à la main : une entrée par site, avec `id`, `name`, `country` (France, Belgique, Angleterre, Espagne ou Autres), `scale` (indicatif), `url`. `{mois}` et `{annee}` dans l'URL sont remplacés par le mois en français et l'année en cours.
 - Sans `kind` : site d'agenda, lu chaque dimanche par le modèle. Réglages facultatifs : `"design_only": true` (lieu entièrement consacré au design, tous ses événements sont gardés) et `"max_chunks": 10` (lire plus de texte sur une page très longue, 4 par défaut, environ 7 000 caractères chacun).
 - `"kind": "atelier"` : lieu qui propose des ateliers ou des stages sur demande, sans dates. Il apparaît dans l'onglet Ateliers (champ `note` = description) et n'est pas lu par le modèle.
 
