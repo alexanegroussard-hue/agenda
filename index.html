@@ -14,8 +14,11 @@
   --muted: #5B6070;
   --rule: #D5D8DE;
   --card: #FFFFFF;
-  --bxl: #D6004B;
-  --nte: #1F3BE6;
+  --be: #D6004B;
+  --fr: #1F3BE6;
+  --uk: #0B7A45;
+  --es: #B35F00;
+  --xx: #5B6070;
   --on-spot: #FFFFFF;
   --focus: #14151A;
   --f-display: "Bricolage Grotesque", "Arial Narrow", Arial, sans-serif;
@@ -25,13 +28,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #121317; --ink: #ECEDF1; --muted: #9AA0B2; --rule: #2C2F38; --card: #1A1C22;
-    --bxl: #FF5C8F; --nte: #8CA0FF; --on-spot: #121317; --focus: #ECEDF1;
+    --be: #FF5C8F; --fr: #8CA0FF; --uk: #4FD18B; --es: #FFB454; --xx: #9AA0B2; --on-spot: #121317; --focus: #ECEDF1;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #121317; --ink: #ECEDF1; --muted: #9AA0B2; --rule: #2C2F38; --card: #1A1C22;
-  --bxl: #FF5C8F; --nte: #8CA0FF; --on-spot: #121317; --focus: #ECEDF1;
+  --be: #FF5C8F; --fr: #8CA0FF; --uk: #4FD18B; --es: #FFB454; --xx: #9AA0B2; --on-spot: #121317; --focus: #ECEDF1;
   color-scheme: dark;
 }
 html { color-scheme: light; }
@@ -53,7 +56,6 @@ button { font: inherit; color: inherit; }
 .mast { display: flex; flex-direction: column; gap: 6px; }
 .kicker { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; }
-.dot.bxl { background: var(--bxl); } .dot.nte { background: var(--nte); }
 h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(34px, 9vw, 56px); line-height: 1; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
 .sub { color: var(--muted); font-size: 14px; margin: 0; }
 
@@ -71,10 +73,8 @@ h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(34px, 9vw
 
 
 .ev { background: var(--card); border: 1px solid var(--rule); border-left-width: 5px; border-radius: 4px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.ev.bxl { border-left-color: var(--bxl); } .ev.nte { border-left-color: var(--nte); }
 .meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; }
 .tag { padding: 2px 7px; border-radius: 3px; color: var(--on-spot); font-weight: 500; }
-.tag.bxl { background: var(--bxl); } .tag.nte { background: var(--nte); }
 .cat { border: 1px solid var(--muted); color: var(--muted); padding: 1px 6px; border-radius: 3px; }
 .when { font-family: var(--f-display); font-weight: 700; font-size: 15px; }
 .ev h3 { font-family: var(--f-display); font-weight: 700; font-size: 20px; line-height: 1.15; margin: 0; letter-spacing: -.01em; text-wrap: balance; overflow-wrap: anywhere; }
@@ -85,7 +85,7 @@ h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(34px, 9vw
 .btn:hover { background: var(--ink); color: var(--paper); }
 .btn.ghost { border-color: var(--rule); font-weight: 400; }
 .btn.ghost:hover { border-color: var(--ink); background: transparent; color: var(--ink); }
-.btn.danger:hover { background: var(--bxl); border-color: var(--bxl); color: var(--on-spot); }
+.btn.danger:hover { background: var(--be); border-color: var(--be); color: var(--on-spot); }
 .tabs { display: flex; gap: 22px; border-bottom: 2px solid var(--ink); }
 .tabs button { background: none; border: 0; padding: 8px 0 10px; cursor: pointer; font-family: var(--f-display); font-weight: 700; font-size: 20px; color: var(--muted); border-bottom: 4px solid transparent; margin-bottom: -2px; }
 .tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
@@ -102,7 +102,7 @@ input[type=checkbox] { width: 18px; height: 18px; padding: 0; }
 .form label.row { flex-direction: row; align-items: center; gap: 8px; font-weight: 400; }
 .form .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
 .msg { font-size: 14px; padding: 10px 12px; border-radius: 5px; border: 1.5px solid var(--rule); }
-.msg.err { border-color: var(--bxl); } .msg.ok { border-color: var(--nte); }
+.msg.err { border-color: var(--be); } .msg.ok { border-color: var(--fr); }
 details.tok { border: 1.5px solid var(--rule); border-radius: 6px; padding: 10px 14px; }
 details.tok summary { cursor: pointer; font-weight: 600; }
 details.tok ol { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 6px; font-size: 14px; }
@@ -124,7 +124,6 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
 .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 28px; align-items: start; }
 .cols > .state { grid-column: 1 / -1; }
 .grp { display: flex; flex-direction: column; gap: 12px; min-width: 0; border-top: 3px solid var(--rule); padding-top: 12px; }
-.grp.bxl { border-top-color: var(--bxl); } .grp.nte { border-top-color: var(--nte); }
 .grp h2 { font-family: var(--f-display); font-weight: 700; font-size: 24px; line-height: 1; letter-spacing: -.01em; margin: 0; display: flex; align-items: center; gap: 9px; }
 .grp h2 .dot { width: 11px; height: 11px; }
 .grp h2 .count { font-family: var(--f-mono); font-weight: 500; font-size: 13px; color: var(--muted); letter-spacing: 0; margin-left: auto; }
@@ -134,7 +133,6 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
 .day { font-family: var(--f-display); text-align: center; line-height: 1; padding-top: 1px; }
 .day b { display: block; font-size: 38px; font-weight: 700; letter-spacing: -.03em; }
 .day span { display: block; margin-top: 4px; font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
-.ev.bxl .day b { color: var(--bxl); } .ev.nte .day b { color: var(--nte); }
 
 .form, details.tok, .help { max-width: 760px; }
 .help { max-width: 66ch; }
@@ -151,8 +149,8 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
   .filters { position: sticky; top: 24px; border-top: 3px solid var(--ink); padding-top: 14px; gap: 16px; }
   .seg button { padding: 8px 6px; font-size: 14px; }
   .dates { grid-template-columns: 1fr; }
-  .chips { flex-direction: column; align-items: stretch; gap: 6px; }
-  .chip { border-radius: 6px; }
+  .filters .chips { flex-direction: column; align-items: stretch; gap: 6px; }
+  .filters .chip { border-radius: 6px; }
   .range { padding-top: 4px; }
   .cols > .grp:only-child > .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 12px; align-items: start; }
   .list.wide { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px; align-items: start; }
@@ -180,19 +178,36 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
   .btn, .chip, .seg button, input, select { min-height: 44px; }
   .btn { padding-inline: 14px; }
 }
+
+/* ---------- Pays : une couleur par pays ---------- */
+.be { --spot: var(--be); } .fr { --spot: var(--fr); } .uk { --spot: var(--uk); } .es { --spot: var(--es); } .xx { --spot: var(--xx); }
+.dot { background: var(--spot, var(--muted)); }
+.tag { background: var(--spot, var(--muted)); }
+.ev { border-left-color: var(--spot, var(--rule)); }
+.grp { border-top-color: var(--spot, var(--rule)); }
+.day b { color: var(--spot, var(--ink)); }
+.kicker .dot { margin-right: 2px; }
+.form .field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; }
+.tagrow { display: flex; gap: 8px; flex-wrap: wrap; }
+.tagrow input { flex: 1 1 160px; }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(76px + env(safe-area-inset-bottom, 0px)); z-index: 30; max-width: min(560px, 92vw); background: var(--ink); color: var(--paper); border: 2px solid var(--ink); border-radius: 6px; padding: 12px 16px; font-size: 14px; cursor: pointer; }
+.toast.err { background: var(--card); color: var(--ink); border-color: var(--be); }
+@media (min-width: 700px) { .toast { bottom: 28px; } }
+@media (max-width: 699px) { .tabs button { font-size: 15px; } }
 @media (prefers-reduced-motion: no-preference) { .btn, .chip, .seg button { transition: background .12s, color .12s, border-color .12s; } }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="mast">
-    <div class="kicker"><span><span class="dot bxl"></span> Bruxelles</span><span><span class="dot nte"></span> Nantes</span><span>Graphisme &amp; design</span></div>
+    <div class="kicker" id="kick"><span>Graphisme &amp; design</span></div>
     <h1>Graphenda</h1>
   </header>
 
   <div class="tabs" role="tablist">
     <button type="button" role="tab" id="t-agenda" aria-selected="true">Agenda</button>
     <button type="button" role="tab" id="t-ateliers" aria-selected="false">Ateliers</button>
+    <button type="button" role="tab" id="t-archives" aria-selected="false">Archives</button>
     <button type="button" role="tab" id="t-sources" aria-selected="false">Sources</button>
   </div>
 
@@ -207,11 +222,7 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
         <label>Du <input type="date" id="from"></label>
         <label>Au <input type="date" id="to"></label>
       </div>
-      <div class="chips" role="group" aria-label="Ville">
-        <button class="chip" data-c="" type="button" aria-pressed="true">Les deux</button>
-        <button class="chip" data-c="Bruxelles" type="button" aria-pressed="false"><span class="dot bxl"></span>Bruxelles</button>
-        <button class="chip" data-c="Nantes" type="button" aria-pressed="false"><span class="dot nte"></span>Nantes</button>
-      </div>
+      <div class="chips" data-role="country" role="group" aria-label="Pays"></div>
     </div>
     <div class="results">
       <p class="range" id="range"></p>
@@ -222,6 +233,20 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
   <section id="p-ateliers" hidden>
     <p class="help">Lieux qui proposent des ateliers, des stages ou des visites sur demande, sans dates fixes. Chaque lien mène à leur page de réservation ou de contact.</p>
     <div id="ateliers" class="cols"></div>
+  </section>
+
+  <section id="p-archives" class="layout" hidden>
+    <div class="filters">
+      <div class="seg" role="group" aria-label="Type d'archives">
+        <button type="button" data-a="past" aria-pressed="true">Passés</button>
+        <button type="button" data-a="deleted" aria-pressed="false">Supprimés</button>
+      </div>
+      <div class="chips" data-role="country" role="group" aria-label="Pays"></div>
+    </div>
+    <div class="results">
+      <p class="range" id="arange"></p>
+      <div id="arch" class="cols"></div>
+    </div>
   </section>
 
   <section id="p-sources" hidden>
@@ -244,6 +269,7 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
 
   <div class="foot" id="foot"></div>
 </div>
+<div id="gmsg"></div>
 
 <script>
 (function () {
@@ -251,17 +277,22 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
   var MONTHS = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
   var DOW = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
   var CATS = { expo: "Expo", salon: "Salon", forum: "Forum", conf: "Conférence", autre: "Événement" };
+  var COUNTRIES = ["France", "Belgique", "Angleterre", "Espagne", "Autres"];
+  var CC = { France: "fr", Belgique: "be", Angleterre: "uk", Espagne: "es", Autres: "xx" };
+  var TZ = { France: "Europe/Paris", Belgique: "Europe/Brussels", Angleterre: "Europe/London", Espagne: "Europe/Madrid" };
+  var CITY_COUNTRY = { "Bruxelles": "Belgique", "Nantes": "France" };
   var $ = function (id) { return document.getElementById(id); };
   var REPO = (function () {
     var m = /^([^.]+)\.github\.io$/.exec(location.hostname), p = location.pathname.split("/")[1];
     return (m && p) ? { owner: m[1], name: p } : { owner: "alexanegroussard-hue", name: "agenda" };
   })();
-  var state = { events: [], period: "week", city: "", sources: null, meta: null, sha: null, editing: null };
+  var state = { events: [], archive: [], deleted: [], period: "week", country: "", archView: "past", sources: null, meta: null };
 
   function pad(n) { return (n < 10 ? "0" : "") + n; }
   function iso(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
   function parse(s) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ""); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; }
   function addDays(d, n) { return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
+  function today() { var t = new Date(); return new Date(t.getFullYear(), t.getMonth(), t.getDate()); }
   function short(d, withYear) { return d.getDate() + (d.getDate() === 1 ? "er " : " ") + MONTHS[d.getMonth()] + (withYear ? " " + d.getFullYear() : ""); }
   function safeUrl(u) { return /^https?:\/\//i.test(u || "") ? u : ""; }
   function h(tag, attrs, kids) {
@@ -273,10 +304,61 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     (kids || []).forEach(function (c) { if (c) e.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
     return e;
   }
-  function cls(city) { return city === "Nantes" ? "nte" : "bxl"; }
+  function cls(country) { return CC[country] || "xx"; }
   function load(url) {
     return fetch(url + "?t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
   }
+
+  /* ---------- Pays et villes ---------- */
+  function cityMap() {
+    var m = Object.assign({}, CITY_COUNTRY);
+    (state.sources || []).forEach(function (s) { if (s.city && CC[s.country]) m[s.city] = s.country; });
+    return m;
+  }
+  function countryOf(x) {
+    if (CC[x.country]) return x.country;
+    if (x.source && state.sources) {
+      for (var i = 0; i < state.sources.length; i++) {
+        if (state.sources[i].id === x.source && CC[state.sources[i].country]) return state.sources[i].country;
+      }
+    }
+    return cityMap()[x.city] || "Autres";
+  }
+  function usedCountries() {
+    var set = {};
+    (state.sources || []).forEach(function (s) { set[countryOf(s)] = 1; });
+    state.events.concat(state.archive, state.deleted).forEach(function (e) { set[countryOf(e)] = 1; });
+    return COUNTRIES.filter(function (c) { return set[c]; });
+  }
+  function knownCities() {
+    var c = Object.keys(CITY_COUNTRY);
+    (state.sources || []).forEach(function (s) { if (s.city && c.indexOf(s.city) < 0) c.push(s.city); });
+    return c;
+  }
+  function chipBtn(val, label) {
+    return h("button", { class: "chip", type: "button", "data-c": val, "aria-pressed": String(state.country === val), onclick: function () {
+      state.country = val; renderChips(); renderAgenda(); renderArchives();
+    } }, [val ? h("span", { class: "dot " + cls(val) }) : null, label]);
+  }
+  function renderChips() {
+    var list = usedCountries();
+    if (state.country && list.indexOf(state.country) < 0) state.country = "";
+    document.querySelectorAll('[data-role="country"]').forEach(function (box) {
+      box.textContent = "";
+      box.appendChild(chipBtn("", "Tous"));
+      list.forEach(function (c) { box.appendChild(chipBtn(c, c)); });
+    });
+  }
+  function renderKicker() {
+    var k = $("kick"); k.textContent = "";
+    usedCountries().forEach(function (c) { k.appendChild(h("span", {}, [h("span", { class: "dot " + cls(c) }), " " + c])); });
+    k.appendChild(h("span", { text: "Graphisme & design" }));
+  }
+  function countryOk(e) { return !state.country || countryOf(e) === state.country; }
+
+  /* ---------- Événements supprimés ---------- */
+  function same(a, b) { return (a.id && a.id === b.id) || (a.title === b.title && a.start === b.start); }
+  function isDeleted(e) { return state.deleted.some(function (d) { return same(d, e); }); }
 
   /* ---------- Agenda ---------- */
   function range() {
@@ -285,8 +367,7 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
   }
   function setPeriod(p) {
     state.period = p;
-    var t = new Date(), a, b;
-    t = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+    var t = today(), a, b;
     if (p === "week") { a = t; b = addDays(t, 6); }
     else if (p === "month") { a = t; b = new Date(t.getFullYear(), t.getMonth() + 1, 0); }
     else { a = new Date(t.getFullYear(), t.getMonth() + 1, 1); b = new Date(t.getFullYear(), t.getMonth() + 2, 0); }
@@ -302,59 +383,88 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
   }
   function calUrl(ev) {
     var a = parse(ev.start), b = parse(ev.end) || a;
-    var tz = ev.city === "Nantes" ? "Europe/Paris" : "Europe/Brussels";
+    var tz = TZ[countryOf(ev)];
     var ymd = iso(a).replace(/-/g, ""), m = /^(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})$/.exec(ev.hours || "");
     var dates = (m && iso(a) === iso(b))
       ? ymd + "T" + pad(+m[1]) + m[2] + "00/" + ymd + "T" + pad(+m[3]) + m[4] + "00"
       : ymd + "/" + iso(addDays(b, 1)).replace(/-/g, "");
     var det = (ev.note ? ev.note + "\n" : "") + (ev.hours ? "Horaires : " + ev.hours + "\n" : "") + (safeUrl(ev.url) ? "Source : " + ev.url : "");
     return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(ev.title) +
-      "&dates=" + dates + "&ctz=" + encodeURIComponent(tz) +
-      "&location=" + encodeURIComponent([ev.venue, ev.address].filter(Boolean).join(", ")) + "&details=" + encodeURIComponent(det);
+      "&dates=" + dates + (tz ? "&ctz=" + encodeURIComponent(tz) : "") +
+      "&location=" + encodeURIComponent([ev.venue, ev.address, ev.city].filter(Boolean).join(", ")) + "&details=" + encodeURIComponent(det);
   }
-  function card(ev) {
-    var url = safeUrl(ev.url), where = [ev.venue, ev.address].filter(Boolean).join(" · ");
+  /* mode : "agenda" (boutons Agenda, Source, Supprimer), "past" (Source), "deleted" (Restaurer, Source) */
+  function card(ev, mode) {
+    var country = countryOf(ev), url = safeUrl(ev.url), where = [ev.venue, ev.address].filter(Boolean).join(" · ");
     var extra = [ev.hours ? "Horaires " + ev.hours : "", ev.free ? "Gratuit" : ""].filter(Boolean).join(" · ");
-    var a = parse(ev.start);
-    return h("article", { class: "ev dated " + cls(ev.city) }, [
-      h("div", { class: "day", "aria-hidden": "true" }, [h("b", { text: String(a.getDate()) }), h("span", { text: MONTHS[a.getMonth()] })]),
+    var a = parse(ev.start), del = parse(ev.deletedAt), acts = [];
+    if (mode === "agenda") acts.push(h("a", { class: "btn", target: "_blank", rel: "noopener", href: calUrl(ev), text: "Ajouter à Google Agenda" }));
+    if (mode === "deleted") acts.push(h("button", { class: "btn", type: "button", text: "Restaurer", onclick: function () { restoreEvent(ev); } }));
+    if (url) acts.push(h("a", { class: "btn ghost", target: "_blank", rel: "noopener", href: url, text: "Source" }));
+    if (mode === "agenda") acts.push(h("button", { class: "btn ghost danger", type: "button", text: "Supprimer", onclick: function () { removeEvent(ev); } }));
+    return h("article", { class: "ev dated " + cls(country) }, [
+      a ? h("div", { class: "day", "aria-hidden": "true" }, [h("b", { text: String(a.getDate()) }), h("span", { text: MONTHS[a.getMonth()] })]) : null,
       h("div", { class: "body" }, [
-        h("div", { class: "meta" }, [h("span", { class: "tag " + cls(ev.city), text: ev.city }), h("span", { class: "cat", text: CATS[ev.category] || CATS.autre })]),
+        h("div", { class: "meta" }, [h("span", { class: "tag", text: ev.city || country }), h("span", { class: "cat", text: CATS[ev.category] || CATS.autre })]),
         h("div", { class: "when", text: whenLabel(ev) }),
         h("h3", { text: ev.title }),
         where ? h("div", { class: "line", text: where }) : null,
         extra ? h("div", { class: "line", text: extra }) : null,
         ev.note ? h("div", { class: "note", text: ev.note }) : null,
-        h("div", { class: "acts" }, [
-          h("a", { class: "btn", target: "_blank", rel: "noopener", href: calUrl(ev), text: "Ajouter à Google Agenda" }),
-          url ? h("a", { class: "btn ghost", target: "_blank", rel: "noopener", href: url, text: "Source" }) : null
-        ])
+        (mode === "deleted" && del) ? h("div", { class: "line", text: "Supprimé le " + short(del, true) }) : null,
+        h("div", { class: "acts" }, acts)
       ])
     ]);
   }
-  function group(city, n) {
-    return h("section", { class: "grp " + cls(city) }, [h("h2", {}, [h("span", { class: "dot " + cls(city) }), city, h("span", { class: "count", text: String(n) })])]);
+  function group(country, n) {
+    return h("section", { class: "grp " + cls(country) }, [h("h2", {}, [h("span", { class: "dot " + cls(country) }), country, h("span", { class: "count", text: String(n) })])]);
   }
+  function fill(list, box, mode) {
+    COUNTRIES.forEach(function (country) {
+      var items = list.filter(function (e) { return countryOf(e) === country; });
+      if (!items.length) return;
+      var g = group(country, items.length), l = h("div", { class: "list" });
+      items.forEach(function (e) { l.appendChild(card(e, mode)); });
+      g.appendChild(l); box.appendChild(g);
+    });
+  }
+  function empty(box, title, text) { box.appendChild(h("div", { class: "state" }, [h("b", { text: title }), text || ""])); }
   function renderAgenda() {
     var r = range(), out = $("out");
     out.textContent = "";
-    if (!r) { out.appendChild(h("div", { class: "state" }, [h("b", { text: "Choisis deux dates" })])); return; }
+    if (!r) { empty(out, "Choisis deux dates"); return; }
     $("range").textContent = "Du " + DOW[r.a.getDay()] + " " + short(r.a, true) + " au " + DOW[r.b.getDay()] + " " + short(r.b, true);
     var list = state.events.filter(function (e) {
       var a = parse(e.start), b = parse(e.end) || a;
-      return a && (!state.city || e.city === state.city) && a <= r.b && b >= r.a;
+      return a && !isDeleted(e) && countryOk(e) && a <= r.b && b >= r.a;
     }).sort(function (x, y) { return x.start.localeCompare(y.start) || x.title.localeCompare(y.title); });
-    if (!list.length) {
-      out.appendChild(h("div", { class: "state" }, [h("b", { text: "Rien de prévu sur cette période" }), "Essaie une période plus large, ou ajoute des sites dans l'onglet Sources."]));
-      return;
+    if (!list.length) { empty(out, "Rien de prévu sur cette période", "Essaie une période plus large, ou ajoute des sites dans l'onglet Sources."); return; }
+    fill(list, out, "agenda");
+  }
+
+  /* ---------- Archives ---------- */
+  function renderArchives() {
+    var box = $("arch"), list, n;
+    box.textContent = "";
+    document.querySelectorAll("[data-a]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-a") === state.archView)); });
+    if (state.archView === "deleted") {
+      list = state.deleted.filter(countryOk).sort(function (x, y) { return (y.deletedAt || "").localeCompare(x.deletedAt || ""); });
+      n = list.length; $("arange").textContent = n + (n > 1 ? " événements supprimés" : " événement supprimé");
+      if (!n) { empty(box, "Aucun événement supprimé", "Ceux que tu supprimes depuis l'agenda arrivent ici, et tu peux les restaurer."); return; }
+      fill(list, box, "deleted");
+    } else {
+      var t = today(), seen = {};
+      list = [];
+      state.events.concat(state.archive).forEach(function (e) {
+        var b = parse(e.end) || parse(e.start), k = e.id || (e.title + "|" + e.start);
+        if (!b || b >= t || seen[k] || isDeleted(e) || !countryOk(e)) return;
+        seen[k] = 1; list.push(e);
+      });
+      list.sort(function (x, y) { return (y.end || y.start).localeCompare(x.end || x.start); });
+      n = list.length; $("arange").textContent = n + (n > 1 ? " événements passés" : " événement passé");
+      if (!n) { empty(box, "Aucun événement passé", "Les événements terminés arrivent ici automatiquement."); return; }
+      fill(list, box, "past");
     }
-    ["Bruxelles", "Nantes"].forEach(function (city) {
-      var items = list.filter(function (e) { return e.city === city; });
-      if (!items.length) return;
-      var g = group(city, items.length), l = h("div", { class: "list" });
-      items.forEach(function (e) { l.appendChild(card(e)); });
-      g.appendChild(l); out.appendChild(g);
-    });
   }
 
   /* ---------- Ateliers ---------- */
@@ -362,13 +472,14 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     var box = $("ateliers"); box.textContent = "";
     if (!state.sources) { box.appendChild(h("div", { class: "state", text: "Chargement…" })); return; }
     var list = state.sources.filter(function (s) { return s.kind === "atelier"; });
-    if (!list.length) { box.appendChild(h("div", { class: "state" }, [h("b", { text: "Aucun atelier pour l'instant" }), "Ajoute-en dans l'onglet Sources, type « Atelier »."])); return; }
-    ["Bruxelles", "Nantes"].forEach(function (city) {
-      var items = list.filter(function (s) { return s.city === city; });
+    if (!list.length) { empty(box, "Aucun atelier pour l'instant", "Ajoute-en dans l'onglet Sources, type « Atelier »."); return; }
+    COUNTRIES.forEach(function (country) {
+      var items = list.filter(function (s) { return countryOf(s) === country; });
       if (!items.length) return;
-      var g = group(city, items.length), l = h("div", { class: "list" });
+      var g = group(country, items.length), l = h("div", { class: "list" });
       items.forEach(function (s) {
-        l.appendChild(h("article", { class: "ev " + cls(city) }, [
+        l.appendChild(h("article", { class: "ev " + cls(country) }, [
+          h("div", { class: "meta" }, [h("span", { class: "tag", text: s.city })]),
           h("h3", { text: s.name }),
           s.note ? h("div", { class: "note", text: s.note }) : null,
           h("div", { class: "acts" }, [safeUrl(s.url) ? h("a", { class: "btn", target: "_blank", rel: "noopener", href: s.url, text: "Voir le site" }) : null])
@@ -378,8 +489,64 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     });
   }
 
-  /* ---------- Sources ---------- */
+  /* ---------- Enregistrement sur GitHub ---------- */
   function token() { try { return localStorage.getItem("agenda_token") || ""; } catch (e) { return ""; } }
+  function b64(s) { var bytes = new TextEncoder().encode(s), bin = ""; bytes.forEach(function (b) { bin += String.fromCharCode(b); }); return btoa(bin); }
+  function unb64(s) { var bin = atob(s.replace(/\s/g, "")), bytes = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i); return new TextDecoder().decode(bytes); }
+  function gh(path, method, body) {
+    return fetch("https://api.github.com/repos/" + REPO.owner + "/" + REPO.name + "/contents/" + path, {
+      method: method, headers: { Authorization: "Bearer " + token(), Accept: "application/vnd.github+json", "Content-Type": "application/json" },
+      body: body ? JSON.stringify(body) : undefined
+    }).then(function (r) { return r.json().then(function (j) { if (!r.ok) { var e = new Error(j.message || r.status); e.status = r.status; throw e; } return j; }); });
+  }
+  function errText(e) {
+    return (e.status === 401 || e.status === 403 || e.status === 404)
+      ? "GitHub a refusé l'enregistrement (" + e.message + "). Vérifie le jeton : dépôt « agenda », permission Contents en lecture et écriture, non expiré."
+      : "Échec de l'enregistrement : " + e.message;
+  }
+  var toastTimer;
+  function gsay(text, kind) {
+    var b = $("gmsg"); clearTimeout(toastTimer); b.textContent = "";
+    if (!text) return;
+    b.appendChild(h("div", { class: "toast " + (kind || ""), text: text, role: "status", onclick: function () { b.textContent = ""; } }));
+    if (kind !== "err") toastTimer = setTimeout(function () { b.textContent = ""; }, 6000);
+  }
+  /* Relit deleted.json sur GitHub, applique fn à la liste, puis l'enregistre : plusieurs appareils restent d'accord. */
+  function mutateDeleted(fn) {
+    return gh("deleted.json", "GET").then(function (cur) {
+      var list = []; try { list = JSON.parse(unb64(cur.content)).events || []; } catch (e) { list = []; }
+      return { list: list, sha: cur.sha };
+    }, function (e) { if (e.status === 404) return { list: [], sha: null }; throw e; }).then(function (c) {
+      var next = fn(c.list.slice());
+      var body = { message: "Événements supprimés ou restaurés depuis la page", content: b64(JSON.stringify({ events: next }, null, 1) + "\n") };
+      if (c.sha) body.sha = c.sha;
+      return gh("deleted.json", "PUT", body).then(function () { state.deleted = next; });
+    });
+  }
+  function needToken() {
+    if (token()) return false;
+    gsay("Pour enregistrer, autorise d'abord la page : onglet Sources, encadré « Autoriser l'enregistrement depuis cette page ».", "err");
+    return true;
+  }
+  function removeEvent(ev) {
+    if (needToken()) return;
+    if (!confirm("Supprimer « " + ev.title + " » ? Il ira dans Archives, onglet Supprimés, et tu pourras le restaurer.")) return;
+    var snap = Object.assign({}, ev, { deletedAt: iso(today()) });
+    state.deleted.push(snap); renderAll(); gsay("Enregistrement…");
+    mutateDeleted(function (list) { if (!list.some(function (x) { return same(x, ev); })) list.push(snap); return list; })
+      .then(function () { renderAll(); gsay("Événement supprimé. Il est dans Archives, onglet Supprimés.", "ok"); })
+      .catch(function (e) { state.deleted = state.deleted.filter(function (x) { return x !== snap; }); renderAll(); gsay(errText(e), "err"); });
+  }
+  function restoreEvent(ev) {
+    if (needToken()) return;
+    var before = state.deleted;
+    state.deleted = before.filter(function (x) { return !same(x, ev); }); renderAll(); gsay("Enregistrement…");
+    mutateDeleted(function (list) { return list.filter(function (x) { return !same(x, ev); }); })
+      .then(function () { renderAll(); gsay("Événement restauré.", "ok"); })
+      .catch(function (e) { state.deleted = before; renderAll(); gsay(errText(e), "err"); });
+  }
+
+  /* ---------- Sources ---------- */
   function say(text, kind) { var b = $("srcmsg"); b.textContent = ""; if (text) b.appendChild(h("div", { class: "msg " + (kind || ""), text: text, role: "status" })); }
   function slug(s) { return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "site"; }
   function renderSources() {
@@ -387,8 +554,9 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     $("toksum").textContent = token() ? "Enregistrement autorisé sur cet appareil (modifier le jeton)" : "Autoriser l'enregistrement depuis cette page";
     if (!state.sources) { box.appendChild(h("div", { class: "state", text: "Chargement…" })); return; }
     state.sources.forEach(function (s, i) {
-      box.appendChild(h("article", { class: "ev " + cls(s.city) }, [
-        h("div", { class: "meta" }, [h("span", { class: "tag " + cls(s.city), text: s.city }), h("span", { class: "cat", text: s.kind === "atelier" ? "Atelier" : "Événements" })]),
+      var country = countryOf(s);
+      box.appendChild(h("article", { class: "ev " + cls(country) }, [
+        h("div", { class: "meta" }, [h("span", { class: "tag", text: s.city }), h("span", { class: "cat", text: country }), h("span", { class: "cat", text: s.kind === "atelier" ? "Atelier" : "Événements" })]),
         h("h3", { text: s.name }),
         h("div", { class: "line", text: s.url }),
         h("div", { class: "acts" }, [
@@ -399,26 +567,50 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     });
   }
   function edit(i) {
-    var s = i === null ? { city: "Bruxelles", kind: "events", scale: "petit", url: "https://" } : state.sources[i];
+    var s = i === null ? { city: "Bruxelles", country: "Belgique", kind: "events", scale: "petit", url: "https://" } : state.sources[i];
     var f = $("srcform"); f.textContent = "";
     var name = h("input", { type: "text", value: s.name || "", required: "required" });
     var url = h("input", { type: "url", value: s.url || "", required: "required" });
-    var city = h("select", {}, [h("option", { value: "Bruxelles", text: "Bruxelles" }), h("option", { value: "Nantes", text: "Nantes" })]); city.value = s.city;
+    var country = h("select", {}, COUNTRIES.map(function (c) { return h("option", { value: c, text: c }); }));
+    var sel = s.city || "Bruxelles", cities = knownCities();
+    if (cities.indexOf(sel) < 0) cities.push(sel);
+    country.value = CC[s.country] ? s.country : (cityMap()[sel] || "Autres");
+    var tags = h("div", { class: "chips", role: "group", "aria-label": "Ville" });
+    function drawTags() {
+      tags.textContent = "";
+      cities.forEach(function (c) {
+        tags.appendChild(h("button", { class: "chip", type: "button", text: c, "aria-pressed": String(c === sel), onclick: function () {
+          sel = c; if (cityMap()[c]) country.value = cityMap()[c]; drawTags();
+        } }));
+      });
+    }
+    drawTags();
+    var newCity = h("input", { type: "text", placeholder: "Autre ville (ex. Londres)", autocomplete: "off", "aria-label": "Autre ville" });
+    function addCity() {
+      var v = newCity.value.trim(); if (!v) return;
+      var known = cities.filter(function (c) { return c.toLowerCase() === v.toLowerCase(); })[0];
+      if (!known) { cities.push(v); known = v; }
+      sel = known; newCity.value = ""; drawTags();
+    }
+    newCity.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); addCity(); } });
     var kind = h("select", {}, [h("option", { value: "events", text: "Événements (agenda daté)" }), h("option", { value: "atelier", text: "Atelier (sur demande, sans dates)" })]); kind.value = s.kind === "atelier" ? "atelier" : "events";
     var note = h("textarea", { rows: "2", placeholder: "Facultatif. Ex. : stages de typographie sur réservation" }); note.value = s.note || "";
     var only = h("input", { type: "checkbox" }); only.checked = !!s.design_only;
     var form = h("form", { class: "form", novalidate: "novalidate" }, [
       h("label", {}, ["Nom", name]), h("label", {}, ["Adresse de la page (celle qui liste les événements ou les ateliers)", url]),
-      h("div", { class: "two" }, [h("label", {}, ["Ville", city]), h("label", {}, ["Type", kind])]),
+      h("div", { class: "two" }, [h("label", {}, ["Pays", country]), h("label", {}, ["Type", kind])]),
+      h("div", { class: "field" }, [h("span", { text: "Ville" }), tags, h("div", { class: "tagrow" }, [newCity, h("button", { class: "btn ghost", type: "button", text: "Ajouter la ville", onclick: addCity })])]),
       h("label", {}, ["Description", note]),
       h("label", { class: "row" }, [only, "Lieu entièrement consacré au design : garder tous ses événements (type Événements)"]),
       h("div", { class: "acts" }, [h("button", { class: "btn", type: "submit", text: "Enregistrer" }), h("button", { class: "btn ghost", type: "button", text: "Annuler", onclick: function () { f.textContent = ""; } })])
     ]);
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      addCity();
       if (!name.value.trim() || !safeUrl(url.value.trim())) { say("Il faut un nom et une adresse qui commence par https://", "err"); return; }
+      if (!sel) { say("Choisis une ville, ou ajoutes-en une.", "err"); return; }
       var o = i === null ? {} : Object.assign({}, s);
-      o.name = name.value.trim(); o.url = url.value.trim(); o.city = city.value;
+      o.name = name.value.trim(); o.url = url.value.trim(); o.city = sel; o.country = country.value;
       if (kind.value === "atelier") o.kind = "atelier"; else delete o.kind;
       if (note.value.trim()) o.note = note.value.trim(); else delete o.note;
       if (only.checked && kind.value !== "atelier") o.design_only = true; else delete o.design_only;
@@ -427,50 +619,37 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
         while (state.sources.some(function (x) { return x.id === id; })) id = base + "-" + n++;
         o.id = id; o.scale = o.scale || "petit"; state.sources.push(o);
       } else state.sources[i] = o;
-      f.textContent = ""; renderSources(); renderAteliers(); save();
+      f.textContent = ""; renderAll(); save();
     });
     f.appendChild(form); name.focus(); f.scrollIntoView({ block: "nearest" });
   }
   function remove(i) {
     if (!confirm("Retirer « " + state.sources[i].name + " » de la liste ?")) return;
-    state.sources.splice(i, 1); renderSources(); renderAteliers(); save();
+    state.sources.splice(i, 1); renderAll(); save();
   }
   function payload() {
     return '{\n  "_aide": ' + JSON.stringify((state.meta && state.meta._aide) || "") + ',\n  "sources": [\n' +
       state.sources.map(function (x) { return "    " + JSON.stringify(x); }).join(",\n") + "\n  ]\n}\n";
   }
-  function b64(s) { var bytes = new TextEncoder().encode(s), bin = ""; bytes.forEach(function (b) { bin += String.fromCharCode(b); }); return btoa(bin); }
-  function api(method, body) {
-    return fetch("https://api.github.com/repos/" + REPO.owner + "/" + REPO.name + "/contents/sources.json", {
-      method: method, headers: { Authorization: "Bearer " + token(), Accept: "application/vnd.github+json", "Content-Type": "application/json" },
-      body: body ? JSON.stringify(body) : undefined
-    }).then(function (r) { return r.json().then(function (j) { if (!r.ok) { var e = new Error(j.message || r.status); e.status = r.status; throw e; } return j; }); });
-  }
   function save() {
     if (!token()) { say("Modification gardée dans la page seulement. Pour l'enregistrer, autorise la page avec un jeton GitHub (encadré plus bas), ou télécharge sources.json.", "err"); $("tokbox").open = true; return; }
     say("Enregistrement…");
-    api("GET").then(function (cur) {
-      return api("PUT", { message: "Sources modifiées depuis la page", content: b64(payload()), sha: cur.sha });
+    gh("sources.json", "GET").then(function (cur) {
+      return gh("sources.json", "PUT", { message: "Sources modifiées depuis la page", content: b64(payload()), sha: cur.sha });
     }).then(function () {
       say("Enregistré. Les changements sont pris en compte à la prochaine mise à jour (dimanche, ou en la lançant à la main).", "ok");
-    }).catch(function (e) {
-      say(e.status === 401 || e.status === 403 || e.status === 404 ? "GitHub a refusé l'enregistrement (" + e.message + "). Vérifie le jeton : dépôt « agenda », permission Contents en lecture et écriture, non expiré." : "Échec de l'enregistrement : " + e.message, "err");
-    });
+    }).catch(function (e) { say(errText(e), "err"); });
   }
 
   /* ---------- Onglets et démarrage ---------- */
+  var TABS = ["agenda", "ateliers", "archives", "sources"];
   function tab(name) {
-    ["agenda", "ateliers", "sources"].forEach(function (t) { $("p-" + t).hidden = t !== name; $("t-" + t).setAttribute("aria-selected", String(t === name)); });
+    gsay("");
+    TABS.forEach(function (t) { $("p-" + t).hidden = t !== name; $("t-" + t).setAttribute("aria-selected", String(t === name)); });
   }
-  ["agenda", "ateliers", "sources"].forEach(function (t) { $("t-" + t).addEventListener("click", function () { tab(t); }); });
+  TABS.forEach(function (t) { $("t-" + t).addEventListener("click", function () { tab(t); }); });
   document.querySelectorAll("[data-p]").forEach(function (b) { b.addEventListener("click", function () { setPeriod(b.getAttribute("data-p")); }); });
-  document.querySelectorAll("[data-c]").forEach(function (b) {
-    b.addEventListener("click", function () {
-      state.city = b.getAttribute("data-c");
-      document.querySelectorAll("[data-c]").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
-      renderAgenda();
-    });
-  });
+  document.querySelectorAll("[data-a]").forEach(function (b) { b.addEventListener("click", function () { state.archView = b.getAttribute("data-a"); renderArchives(); }); });
   ["from", "to"].forEach(function (id) {
     $(id).addEventListener("change", function () {
       state.period = "";
@@ -493,20 +672,24 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
   });
   $("tok-clear").addEventListener("click", function () { try { localStorage.removeItem("agenda_token"); } catch (e) {} say("Jeton oublié.", "ok"); renderSources(); });
 
+  function renderAll() { renderChips(); renderKicker(); renderAgenda(); renderArchives(); renderAteliers(); renderSources(); }
+
   setPeriod("week");
   load("events.json").then(function (d) {
     state.events = d.events || [];
     if (d.updated) $("foot").textContent = "Dernière mise à jour : " + d.updated.slice(0, 10) + " · mise à jour automatique chaque dimanche";
-    renderAgenda();
+    renderAll();
   }).catch(function () {
     $("out").textContent = "";
-    $("out").appendChild(h("div", { class: "state" }, [h("b", { text: "Programme indisponible" }), "events.json n'a pas pu être chargé. Recharge la page dans un instant."]));
+    empty($("out"), "Programme indisponible", "events.json n'a pas pu être chargé. Recharge la page dans un instant.");
   });
   load("sources.json").then(function (d) {
     state.meta = { _aide: d._aide }; state.sources = d.sources || [];
-    renderAteliers(); renderSources();
-  }).catch(function () { state.sources = []; renderAteliers(); renderSources(); say("sources.json n'a pas pu être chargé.", "err"); });
-  renderAteliers(); renderSources();
+    renderAll();
+  }).catch(function () { state.sources = []; renderAll(); say("sources.json n'a pas pu être chargé.", "err"); });
+  load("archive.json").then(function (d) { state.archive = d.events || []; renderAll(); }).catch(function () {});
+  load("deleted.json").then(function (d) { state.deleted = d.events || []; renderAll(); }).catch(function () {});
+  renderAll();
 })();
 </script>
 </body>

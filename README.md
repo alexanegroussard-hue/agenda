@@ -1,7 +1,7 @@
 # Graphenda
 
 Salons, expositions, forums et autres événements de graphisme et de design à Bruxelles et à Nantes.
-La page a trois onglets : **Agenda** (liste des événements entre deux dates, 7 prochains jours par défaut, avec un bouton « Ajouter à Google Agenda »), **Ateliers** (lieux qui proposent des ateliers sur demande) et **Sources** (liste des sites lus, modifiable depuis la page).
+La page a quatre onglets : **Agenda** (liste des événements entre deux dates, 7 prochains jours par défaut, filtre par pays, boutons « Ajouter à Google Agenda » et « Supprimer »), **Ateliers** (lieux qui proposent des ateliers sur demande), **Archives** (événements passés, et événements supprimés que l'on peut restaurer) et **Sources** (liste des sites lus, modifiable depuis la page).
 
 ## Fonctionnement
 
@@ -49,3 +49,10 @@ Ajoute un objet dans `events.json` avec `"origin": "manual"` : le script ne le m
 - Un petit modèle se trompe plus qu'un grand : relis de temps en temps les événements importants avant d'y aller, chaque événement a son lien source.
 - Si un site change de mise en page, le modèle s'en sort en général, mais un site qui bloque les robots (`robots.txt`) ou qui charge son agenda par JavaScript n'est pas lisible. Il apparaît alors en échec dans le résumé.
 - GitHub désactive les workflows programmés d'un dépôt public après 60 jours sans activité. Le workflow écrit chaque semaine un fichier `last-run.json` pour l'éviter. Si l'onglet Actions montre le workflow comme désactivé, clique **Enable workflow**.
+
+## Pays, villes, suppressions et archives
+
+- Chaque source a un **pays** (France, Belgique, Angleterre, Espagne ou Autres) et une **ville** (libre : on peut en ajouter de nouvelles dans le formulaire d'une source). Les filtres et les groupes de la page sont par pays ; la ville s'affiche seulement sur la carte de l'événement.
+- **Supprimer** un événement l'ajoute à `deleted.json` (copie de l'événement + date). La mise à jour du dimanche ne le remet pas. Archives, onglet Supprimés, permet de le **restaurer**. Comme pour les sources, il faut avoir collé le jeton GitHub sur l'appareil.
+- Les événements terminés restent dans `events.json` 120 jours, puis passent dans `archive.json` (conservés 2 ans). L'onglet Archives, vue Passés, affiche les deux.
+

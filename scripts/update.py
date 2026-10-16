@@ -33,6 +33,8 @@ UA = "GraphendaBot/1.0 (+https://github.com/alexanegroussard-hue/agenda)"
 CHUNK_CHARS = 7000
 MAX_CHUNKS = 4
 KEEP_PAST_DAYS = 120
+ARCHIVE_DAYS = 730
+CITY_COUNTRY = {"Bruxelles": "Belgique", "Nantes": "France"}
 ONLY = {x.strip() for x in os.environ.get("ONLY", "").split(",") if x.strip()}
 FORCE = os.environ.get("FORCE", "").strip().lower() in ("1", "true", "yes")
 MONTHS_FR = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet",
@@ -256,6 +258,7 @@ def clean_event(raw: dict, source: dict, text_norm: str, d: dt.date, wend: dt.da
     ev = {
         "title": title,
         "city": source["city"],
+        "country": country_of(source),
         "category": category,
         "venue": str(raw.get("venue") or source.get("venue") or "").strip()[:120],
         "address": str(raw.get("address", "")).strip()[:160],
@@ -269,6 +272,10 @@ def clean_event(raw: dict, source: dict, text_norm: str, d: dt.date, wend: dt.da
     if hours:
         ev["hours"] = hours
     return ev, None
+
+
+def country_of(item: dict) -> str:
+    return item.get("country") or CITY_COUNTRY.get(item.get("city", ""), "Autres")
 
 
 def event_key(ev: dict) -> str:
@@ -290,6 +297,19 @@ def main() -> int:
     existing = []
     if events_path.exists():
         existing = json.loads(events_path.read_text(encoding="utf-8")).get("events", [])
+
+    # Événements supprimés depuis la page (deleted.json) : on ne les remet pas.
+    deleted_ids, deleted_keys = set(), set()
+    deleted_path = OUT_DIR / "deleted.json"
+    if deleted_path.exists():
+        for e in json.loads(deleted_path.read_text(encoding="utf-8")).get("events", []):
+            if e.get("id"):
+                deleted_ids.add(e["id"])
+            if e.get("title") and e.get("start"):
+                deleted_keys.add(event_key({"title": e["title"], "city": e.get("city", ""), "start": e["start"]}))
+
+    def is_deleted(e: dict) -> bool:
+        return e.get("id") in deleted_ids or (bool(e.get("title")) and bool(e.get("start")) and event_key(e) in deleted_keys)
 
     if ONLY:
         sources = [s for s in sources if s["id"] in ONLY]
@@ -369,16 +389,24 @@ def main() -> int:
 
     if found:
         merged = {}
+        expired = []
         for ev in existing:
             if ev.get("origin") != "manual" and ev.get("source") and ev["source"] not in known_ids:
                 continue  # source retirée de la liste, ou devenue « atelier » : ses événements disparaissent
+            if is_deleted(ev):
+                continue
+            ev.setdefault("country", country_of(ev))
             if ev.get("origin") == "manual":
                 merged[f"manual|{ev.get('id', event_key(ev))}"] = ev
             elif parse_date(ev.get("end", "")) and parse_date(ev["end"]) >= d - dt.timedelta(days=KEEP_PAST_DAYS):
                 merged[event_key(ev)] = ev
+            elif parse_date(ev.get("end", "")):
+                expired.append(ev)  # trop ancien pour l'agenda : passe dans archive.json
         added = updated = 0
         for k, ev in found.items():
             ev["id"] = f"{slug(ev['title'])}-{ev['start']}"
+            if is_deleted(ev):
+                continue
             old = merged.get(k)
             if old is None:
                 ev["addedAt"] = d.isoformat()
@@ -392,6 +420,17 @@ def main() -> int:
         out = sorted(merged.values(), key=lambda e: (e["start"], e["title"]))
         events_path.write_text(
             json.dumps({"updated": stamp, "events": out}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        arch_path = OUT_DIR / "archive.json"
+        arch = {}
+        if arch_path.exists():
+            for e in json.loads(arch_path.read_text(encoding="utf-8")).get("events", []):
+                arch[e.get("id") or event_key(e)] = e
+        for e in expired:
+            arch[e.get("id") or event_key(e)] = e
+        limit = d - dt.timedelta(days=ARCHIVE_DAYS)
+        arch_out = sorted((e for e in arch.values() if (parse_date(e.get("end", "")) or d) >= limit and not is_deleted(e)),
+                          key=lambda e: (e.get("end", ""), e.get("title", "")), reverse=True)
+        arch_path.write_text(json.dumps({"events": arch_out}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         report.append(f"\nAjoutés : {added} · modifiés : {updated} · total dans le fichier : {len(out)}")
     (OUT_DIR / "last-run.json").write_text(
         json.dumps({"lastRun": stamp, "sourcesOk": ok_sources, "sourcesFailed": failed}) + "\n", encoding="utf-8")

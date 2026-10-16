@@ -14,7 +14,8 @@
    "note": "Exposition personnelle mêlant dessin et sculpture. Horaires à vérifier auprès de la galerie.",
    "url": "https://www.baratin.art/2026/10/06/echappee-culturelle-le-guide-incontournable-de-lexposition-a-nantes/",
    "addedAt": "2026-10-14",
-   "origin": "auto"
+   "origin": "auto",
+   "country": "France"
   },
   {
    "id": "gilbard-friends-2026",
@@ -33,7 +34,8 @@
    "note": "Aussi le premier samedi du mois (13:00–17:00) et en semaine sur réservation auprès des commissaires. Dernier jour : vendredi 16 octobre.",
    "url": "https://designweek.brussels/en/agenda",
    "addedAt": "2026-10-14",
-   "origin": "auto"
+   "origin": "auto",
+   "country": "Belgique"
   },
   {
    "id": "mad-future-generation-2026",
@@ -55,7 +57,8 @@
    "note": "Projets de fin d'études de sept écoles bruxelloises de mode et de design. Réservation en ligne obligatoire sur mad.brussels.",
    "url": "https://press.mad.brussels/autumn-at-mad-brussels",
    "addedAt": "2026-10-14",
-   "origin": "auto"
+   "origin": "auto",
+   "country": "Belgique"
   },
   {
    "id": "mad-icons-2026",
@@ -77,7 +80,8 @@
    "note": "Réservation en ligne obligatoire sur mad.brussels. Le lauréat 2026 est présenté à partir du 14 octobre.",
    "url": "https://press.mad.brussels/autumn-at-mad-brussels",
    "addedAt": "2026-10-14",
-   "origin": "auto"
+   "origin": "auto",
+   "country": "Belgique"
   },
   {
    "id": "alto-baba-manifesto-2026",
@@ -92,7 +96,8 @@
    "note": "Exposition de Jacopo Koning. Horaires et adresse à vérifier sur la page de la Brussels Design Week.",
    "url": "https://designweek.brussels/en/agenda",
    "addedAt": "2026-10-14",
-   "origin": "auto"
+   "origin": "auto",
+   "country": "Belgique"
   },
   {
    "title": "Val Saint-Lambert Design 1958-2000",
@@ -108,7 +113,8 @@
    "origin": "auto",
    "hours": "11:00-19:00",
    "id": "val-saint-lambert-design-1958-2000-2026-10-14",
-   "addedAt": "2026-10-14"
+   "addedAt": "2026-10-14",
+   "country": "Belgique"
   },
   {
    "title": "Alluvions",
@@ -123,7 +129,8 @@
    "source": "ixelles-expos",
    "origin": "auto",
    "id": "alluvions-2026-10-15",
-   "addedAt": "2026-10-15"
+   "addedAt": "2026-10-15",
+   "country": "Belgique"
   },
   {
    "title": "Jeanne Saboureault - En chemin - Illustration",
@@ -139,7 +146,8 @@
    "origin": "auto",
    "hours": "10:00-18:00",
    "id": "jeanne-saboureault-en-chemin-illustration-2026-10-15",
-   "addedAt": "2026-10-15"
+   "addedAt": "2026-10-15",
+   "country": "Belgique"
   },
   {
    "title": "L'horizon est une abstraction",
@@ -155,7 +163,8 @@
    "origin": "auto",
    "hours": "10:00-18:00",
    "id": "l-horizon-est-une-abstraction-2026-10-15",
-   "addedAt": "2026-10-15"
+   "addedAt": "2026-10-15",
+   "country": "Belgique"
   },
   {
    "title": "Matthäus- Passion Edgar Sarin",
@@ -171,7 +180,8 @@
    "origin": "auto",
    "hours": "16:00-19:00",
    "id": "matthaus-passion-edgar-sarin-2026-10-15",
-   "addedAt": "2026-10-15"
+   "addedAt": "2026-10-15",
+   "country": "Belgique"
   },
   {
    "title": "Variable(s) pictural",
@@ -186,7 +196,8 @@
    "source": "wik-nantes",
    "origin": "auto",
    "id": "variable-s-pictural-2026-10-15",
-   "addedAt": "2026-10-14"
+   "addedAt": "2026-10-14",
+   "country": "France"
   },
   {
    "title": "Minimal processes of change",
@@ -202,7 +213,8 @@
    "origin": "auto",
    "hours": "10:00-18:00",
    "id": "minimal-processes-of-change-2026-10-16",
-   "addedAt": "2026-10-15"
+   "addedAt": "2026-10-15",
+   "country": "Belgique"
   },
   {
    "title": "Loïc Sécheresse - Exposition",
@@ -217,7 +229,8 @@
    "source": "wik-nantes",
    "origin": "auto",
    "id": "loic-secheresse-exposition-2026-10-17",
-   "addedAt": "2026-10-14"
+   "addedAt": "2026-10-14",
+   "country": "France"
   },
   {
    "title": "CHILDREN’S CAMP | THE IMAGE STUDIO – IMAGINE, PRINT, CREATE!",
@@ -232,7 +245,8 @@
    "source": "design-museum-brussels",
    "origin": "auto",
    "id": "children-s-camp-the-image-studio-imagine-print-create-2026-10-26",
-   "addedAt": "2026-10-14"
+   "addedAt": "2026-10-14",
+   "country": "Belgique"
   },
   {
    "title": "L'image élargie",
@@ -248,7 +262,8 @@
    "origin": "auto",
    "hours": "17:00-20:00",
    "id": "l-image-elargie-2026-11-05",
-   "addedAt": "2026-10-15"
+   "addedAt": "2026-10-15",
+   "country": "Belgique"
   },
   {
    "title": "CHILDREN’S ARTS DAY – “ME AND …” CREATE A BOOK THAT’S ALL ABOUT YOU",
@@ -263,7 +278,8 @@
    "source": "design-museum-brussels",
    "origin": "auto",
    "id": "children-s-arts-day-me-and-create-a-book-that-s-all-about-yo-2026-11-15",
-   "addedAt": "2026-10-14"
+   "addedAt": "2026-10-14",
+   "country": "Belgique"
   },
   {
    "title": "CINE DESIGN | IDENTITY: A CZECH GRAPHIC DESIGN LOVE STORY",
@@ -278,7 +294,8 @@
    "source": "design-museum-brussels",
    "origin": "auto",
    "id": "cine-design-identity-a-czech-graphic-design-love-story-2026-11-15",
-   "addedAt": "2026-10-14"
+   "addedAt": "2026-10-14",
+   "country": "Belgique"
   },
   {
    "title": "Kiro URDIN : Au delà du Réel",
@@ -294,7 +311,8 @@
    "origin": "auto",
    "hours": "10:00-18:00",
    "id": "kiro-urdin-au-dela-du-reel-2026-11-20",
-   "addedAt": "2026-10-15"
+   "addedAt": "2026-10-15",
+   "country": "Belgique"
   }
  ]
 }
