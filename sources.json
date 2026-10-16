@@ -12,7 +12,7 @@
     {"id":"wik-nantes","name":"Wik Nantes, expositions","scale":"moyen","url":"https://www.wik-nantes.fr/expos","country":"France"},
     {"id":"agendaculturel-44","name":"Agenda culturel 44, expositions","scale":"moyen","url":"https://44.agendaculturel.fr/exposition/nantes/","country":"France"},
     {"id":"evous-nantes-musees","name":"Evous Nantes, musées et expositions","scale":"moyen","url":"https://nantes.evous.fr/musees/","country":"France"},
-    {"id":"evous-nantes-salons","name":"Evous Nantes, salons","scale":"grand","url":"https://nantes.evous.fr/salons/{mois}/","country":"France"},
+    {"id":"evous-nantes-salons","name":"Evous Nantes, salons","scale":"grand","url":"https://nantes.evous.fr/salons/","country":"France"},
     {"id":"beaux-arts-nantes","name":"Beaux-Arts Nantes Saint-Nazaire","scale":"petit","url":"https://beauxartsnantes.fr/fr/open-school/expositions","venue":"Beaux-Arts Nantes Saint-Nazaire","country":"France"},
     {"id":"musee-imprimerie-nantes","name":"Musée de l'imprimerie de Nantes","scale":"petit","url":"https://musee-imprimerie.com/","kind":"atelier","note":"Ateliers d'impression typographique, visites et stages sur demande.","country":"France"},
     {"id":"tour-taxis","name":"Tour & Taxis","scale":"grand","url":"https://tour-taxis.com/events/","venue":"Tour & Taxis","max_chunks":6,"country":"Belgique"},
