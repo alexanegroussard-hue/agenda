@@ -1,4 +1,4 @@
-# Agenda Graphisme
+# Graphenda
 
 Salons, expositions, forums et autres événements de graphisme et de design à Bruxelles et à Nantes.
 La page a trois onglets : **Agenda** (liste des événements entre deux dates, 7 prochains jours par défaut, avec un bouton « Ajouter à Google Agenda »), **Ateliers** (lieux qui proposent des ateliers sur demande) et **Sources** (liste des sites lus, modifiable depuis la page).
@@ -17,7 +17,7 @@ Contrôles appliqués à chaque événement trouvé par le modèle : dates valid
 
 1. Dans le dépôt : **Settings → Pages**. Sous « Build and deployment », choisis **Deploy from a branch**, branche **main**, dossier **/ (root)**, puis **Save**. L'adresse de la page s'affiche au bout d'une minute ou deux.
 2. Dans **Settings → Actions → General**, tout en bas, « Workflow permissions » : choisis **Read and write permissions** et enregistre.
-3. Onglet **Actions** : ouvre « Mise à jour de l'agenda » et clique **Run workflow** pour tester sans attendre dimanche. La première exécution télécharge le modèle (environ 5 Go) et peut durer une à deux heures. Les suivantes réutilisent le modèle gardé en cache.
+3. Onglet **Actions** : ouvre « Mise à jour de Graphenda » et clique **Run workflow** pour tester sans attendre dimanche. La première exécution télécharge le modèle (environ 5 Go) et peut durer une à deux heures. Les suivantes réutilisent le modèle gardé en cache.
 4. Quand l'exécution est terminée, ouvre le résumé de l'exécution : il indique, source par source, combien d'événements ont été retenus et pourquoi d'autres ont été écartés.
 
 ## Ajouter ou retirer un site
@@ -32,7 +32,7 @@ Retirer un site ou le passer en « atelier » supprime ses événements au proch
 
 ## Tester vite
 
-Dans l'onglet **Actions → Mise à jour de l'agenda → Run workflow**, trois réglages :
+Dans l'onglet **Actions → Mise à jour de Graphenda → Run workflow**, trois réglages :
 - **only** : une ou plusieurs sources seulement (leurs `id`, séparés par des virgules). Un test sur une ou deux sources prend quelques minutes au lieu de plusieurs heures.
 - **force** : relit toutes les pages. Sans cette case, une page identique à celle de la semaine précédente n'est pas relue par le modèle, ce qui économise beaucoup de temps. Les événements déjà trouvés restent dans `events.json`.
 - **model** : `qwen2.5:7b` (plus fiable) ou `qwen2.5:3b` (environ deux fois plus rapide, un peu moins fiable).

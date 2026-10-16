@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT_DIR = Path(os.environ.get("OUT_DIR", ROOT))
 MODEL = os.environ.get("MODEL", "qwen2.5:7b")
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
-UA = "AgendaGraphismeBot/1.0 (+https://github.com/alexanegroussard-hue/agenda)"
+UA = "GraphendaBot/1.0 (+https://github.com/alexanegroussard-hue/agenda)"
 CHUNK_CHARS = 7000
 MAX_CHUNKS = 4
 KEEP_PAST_DAYS = 120
@@ -402,7 +402,7 @@ def main() -> int:
         report.append("Rejets par les contrôles : " + ", ".join(f"{k} ×{v}" for k, v in sorted(rejected_total.items())))
     for p in problems:
         report.append(f"ATTENTION : {p}")
-    text = f"## Mise à jour de l'agenda ({d.isoformat()})\n\n" + "\n".join(report) + "\n"
+    text = f"## Mise à jour de Graphenda ({d.isoformat()})\n\n" + "\n".join(report) + "\n"
     print(text)
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
     if summary:
