@@ -11,7 +11,7 @@ La page a quatre onglets : **Agenda** (liste des événements entre deux dates, 
 - `scripts/update.py` : lit les pages des sources, fait extraire les événements par un petit modèle libre (Ollama), contrôle chaque résultat avec du code et met à jour `events.json`.
 - `.github/workflows/update.yml` : lance le script chaque dimanche sur GitHub Actions (gratuit pour un dépôt public).
 
-Contrôles appliqués à chaque événement trouvé par le modèle : dates valides et dans la période (jusqu'à la fin du mois suivant), titre retrouvé dans le texte de la page, sujet lié au graphisme ou au design, horaires au bon format. Un événement qui échoue à un contrôle est écarté. Si rien n'est trouvé ou si plus de la moitié des sources échouent, `events.json` n'est pas modifié et l'exécution est marquée en échec (GitHub t'envoie un e-mail).
+Contrôles appliqués à chaque événement trouvé par le modèle : dates valides et dans la période (jusqu'à la fin du mois suivant), titre retrouvé dans le texte de la page, horaires au bon format. Un événement qui échoue à un contrôle est écarté. Si rien n'est trouvé ou si plus de la moitié des sources échouent, `events.json` n'est pas modifié et l'exécution est marquée en échec (GitHub t'envoie un e-mail).
 
 ## Mise en route (une seule fois)
 
