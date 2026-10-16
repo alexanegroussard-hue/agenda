@@ -472,7 +472,11 @@ a.fi1:hover .t { text-decoration: underline; }
   function empty(box, title, text) { box.appendChild(h("div", { class: "state" }, [h("b", { text: title }), text || ""])); }
   /* ---------- Bandeau « festivals importants » ---------- */
   var FEST_RE = /festival|biennale|triennale|design week/i;
-  function isFestival(e) { return e.category === "festival" || FEST_RE.test(e.title || ""); }
+  /* Festival : au moins deux jours, et classé « festival » par le modèle ou titre du genre festival, biennale... */
+  function isFestival(e) {
+    var a = parse(e.start), b = parse(e.end);
+    return !!(a && b && b > a) && (e.category === "festival" || FEST_RE.test(e.title || ""));
+  }
   function festRank(e) { var m = state.marks[markKey(e)]; return m === "fav" ? 0 : m === "low" ? 2 : 1; }
   function renderFest() {
     var box = $("fest"), t = today();

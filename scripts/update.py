@@ -185,7 +185,9 @@ def build_prompt(source: dict, text: str, d: dt.date, end: dt.date) -> str:
         "Règles :\n"
         "- Dates au format AAAA-MM-JJ. Si l'année n'est pas écrite, prends l'année de la date du jour. "
         "Pour un événement d'un seul jour, end = start.\n"
-        "- category : \"festival\" pour un festival, une biennale ou une semaine du design ; sinon expo, salon, forum, conf ou autre.\n"
+        "- category : \"festival\" seulement pour un événement de plusieurs jours qui regroupe plusieurs activités "
+        "(expositions, conférences, ateliers, projections...) sous un même thème : festival, biennale, semaine du design. "
+        "Une exposition seule n'est pas un festival. Sinon : expo, salon, forum, conf ou autre.\n"
         "- city : la ville où se déroule l'événement, telle qu'elle est écrite dans le texte, sinon chaîne vide.\n"
         "- hours : horaires d'ouverture au format HH:MM-HH:MM, sinon chaîne vide.\n"
         "- url : le lien de la page de l'événement s'il apparaît entre chevrons < > dans le texte, sinon chaîne vide.\n"
@@ -261,6 +263,8 @@ def clean_event(raw: dict, source: dict, text_norm: str, d: dt.date, wend: dt.da
     city = re.sub(r"\s+", " ", str(raw.get("city") or "")).strip()[:60]
     if city and norm(city) not in text_norm:
         city = ""  # ville absente de la page : on ne la garde pas
+    if category == "festival" and end == start:
+        category = "autre"  # un festival dure au moins deux jours
     ev = {
         "title": title,
         "city": city or source.get("city", ""),
