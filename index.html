@@ -45,7 +45,7 @@ body {
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
-.wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+.wrap { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
 a { color: inherit; }
 button { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
@@ -91,10 +91,8 @@ h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(34px, 9vw
 .tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
 .dates { display: flex; gap: 10px 14px; flex-wrap: wrap; align-items: center; }
 .dates label { font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); display: flex; flex-direction: column; gap: 3px; }
-input, select, textarea { font: inherit; color: var(--ink); background: var(--card); border: 1.5px solid var(--rule); border-radius: 5px; padding: 7px 9px; min-width: 0; }
+input, select, textarea { font: inherit; font-size: 16px; color: var(--ink); background: var(--card); border: 1.5px solid var(--rule); border-radius: 5px; padding: 7px 9px; min-width: 0; }
 input[type=checkbox] { width: 18px; height: 18px; padding: 0; }
-.grp { padding-top: 16px; display: flex; flex-direction: column; gap: 10px; }
-.grp h2 { font-family: var(--f-mono); font-weight: 500; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin: 0; display: flex; align-items: center; gap: 8px; border-top: 1px solid var(--rule); padding-top: 14px; }
 .state { border: 1.5px dashed var(--rule); border-radius: 6px; padding: 22px 18px; color: var(--muted); }
 .state b { color: var(--ink); display: block; font-family: var(--f-display); font-size: 18px; margin-bottom: 4px; }
 .foot { font-family: var(--f-mono); font-size: 12px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 12px; }
@@ -109,6 +107,79 @@ details.tok { border: 1.5px solid var(--rule); border-radius: 6px; padding: 10px
 details.tok summary { cursor: pointer; font-weight: 600; }
 details.tok ol { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 6px; font-size: 14px; }
 code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); padding: 1px 4px; border-radius: 3px; border: 1px solid var(--rule); }
+
+/* ---------- Mise en page ---------- */
+.layout { display: flex; flex-direction: column; gap: 16px; }
+.filters { display: flex; flex-direction: column; gap: 12px; }
+.results { min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.range { margin: 0; font-family: var(--f-mono); font-size: 13px; color: var(--muted); }
+.seg { display: flex; }
+.seg button { flex: 1; white-space: nowrap; }
+.dates { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dates label { min-width: 0; }
+.dates input { width: 100%; }
+.chip { padding: 7px 13px; }
+
+.list { display: flex; flex-direction: column; gap: 10px; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 28px; align-items: start; }
+.cols > .state { grid-column: 1 / -1; }
+.grp { display: flex; flex-direction: column; gap: 12px; min-width: 0; border-top: 3px solid var(--rule); padding-top: 12px; }
+.grp.bxl { border-top-color: var(--bxl); } .grp.nte { border-top-color: var(--nte); }
+.grp h2 { font-family: var(--f-display); font-weight: 700; font-size: 24px; line-height: 1; letter-spacing: -.01em; margin: 0; display: flex; align-items: center; gap: 9px; }
+.grp h2 .dot { width: 11px; height: 11px; }
+.grp h2 .count { font-family: var(--f-mono); font-weight: 500; font-size: 13px; color: var(--muted); letter-spacing: 0; margin-left: auto; }
+
+.ev.dated { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 0 14px; }
+.ev .body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.day { font-family: var(--f-display); text-align: center; line-height: 1; padding-top: 1px; }
+.day b { display: block; font-size: 38px; font-weight: 700; letter-spacing: -.03em; }
+.day span { display: block; margin-top: 4px; font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.ev.bxl .day b { color: var(--bxl); } .ev.nte .day b { color: var(--nte); }
+
+.form, details.tok, .help { max-width: 760px; }
+.help { max-width: 66ch; }
+
+/* Ordinateur : filtres fixes à gauche, une colonne par ville */
+@media (min-width: 900px) {
+  body { padding-block: 36px 64px; }
+  .wrap { gap: 28px; }
+  .mast { flex-direction: row-reverse; justify-content: space-between; align-items: flex-end; gap: 24px; }
+  h1 { font-size: clamp(56px, 6vw, 84px); }
+  .kicker { padding-bottom: 8px; font-size: 12.5px; }
+  .tabs button { font-size: 22px; }
+  .layout { display: grid; grid-template-columns: 252px minmax(0, 1fr); gap: 44px; align-items: start; }
+  .filters { position: sticky; top: 24px; border-top: 3px solid var(--ink); padding-top: 14px; gap: 16px; }
+  .seg button { padding: 8px 6px; font-size: 14px; }
+  .dates { grid-template-columns: 1fr; }
+  .chips { flex-direction: column; align-items: stretch; gap: 6px; }
+  .chip { border-radius: 6px; }
+  .range { padding-top: 4px; }
+  .cols > .grp:only-child > .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 12px; align-items: start; }
+  .list.wide { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px; align-items: start; }
+  .ev { padding: 14px 16px; }
+  .ev h3 { font-size: 21px; }
+  .btn:hover { background: var(--ink); color: var(--paper); }
+}
+@media (min-width: 1300px) { .wrap { max-width: 1320px; } .layout { grid-template-columns: 280px minmax(0, 1fr); } }
+
+/* Téléphone : onglets en bas, cibles tactiles confortables */
+@media (max-width: 699px) {
+  body { padding-top: 14px; padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+  .wrap { gap: 14px; }
+  .kicker { font-size: 11px; gap: 4px 10px; }
+  .tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; gap: 0; background: var(--paper); border-bottom: 0; border-top: 2px solid var(--ink); padding: 0 env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
+  .tabs button { flex: 1; min-height: 58px; margin: 0; padding: 8px 0; font-size: 17px; border-bottom: 0; border-top: 4px solid transparent; margin-top: -2px; }
+  .tabs button[aria-selected="true"] { border-top-color: var(--ink); }
+  .foot { font-size: 11px; }
+  .ev.dated { grid-template-columns: 46px minmax(0, 1fr); gap: 0 12px; }
+  .day b { font-size: 31px; }
+  .ev h3 { font-size: 19px; }
+  .acts .btn:first-child { flex: 1 1 auto; justify-content: center; }
+}
+@media (pointer: coarse) {
+  .btn, .chip, .seg button, input, select { min-height: 44px; }
+  .btn { padding-inline: 14px; }
+}
 @media (prefers-reduced-motion: no-preference) { .btn, .chip, .seg button { transition: background .12s, color .12s, border-color .12s; } }
 </style>
 </head>
@@ -125,8 +196,8 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     <button type="button" role="tab" id="t-sources" aria-selected="false">Sources</button>
   </div>
 
-  <section id="p-agenda">
-    <div style="display:flex;flex-direction:column;gap:14px">
+  <section id="p-agenda" class="layout">
+    <div class="filters">
       <div class="seg" role="group" aria-label="Période">
         <button type="button" data-p="week" aria-pressed="true">7 jours</button>
         <button type="button" data-p="month" aria-pressed="false">Ce mois</button>
@@ -141,21 +212,23 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
         <button class="chip" data-c="Bruxelles" type="button" aria-pressed="false"><span class="dot bxl"></span>Bruxelles</button>
         <button class="chip" data-c="Nantes" type="button" aria-pressed="false"><span class="dot nte"></span>Nantes</button>
       </div>
-      <p class="sub" id="range" style="font-family:var(--f-mono);font-size:13px"></p>
     </div>
-    <div id="out" aria-live="polite"><div class="state"><b>Chargement du programme</b>Les événements s'affichent dans un instant.</div></div>
+    <div class="results">
+      <p class="range" id="range"></p>
+      <div id="out" class="cols" aria-live="polite"><div class="state"><b>Chargement du programme</b>Les événements s'affichent dans un instant.</div></div>
+    </div>
   </section>
 
   <section id="p-ateliers" hidden>
     <p class="help">Lieux qui proposent des ateliers, des stages ou des visites sur demande, sans dates fixes. Chaque lien mène à leur page de réservation ou de contact.</p>
-    <div id="ateliers"></div>
+    <div id="ateliers" class="cols"></div>
   </section>
 
   <section id="p-sources" hidden>
     <p class="help">Les sites lus chaque dimanche. Tu peux en ajouter, en modifier ou en retirer ici. La liste est enregistrée dans <code>sources.json</code> et prise en compte à la prochaine mise à jour.</p>
     <div id="srcmsg"></div>
     <div id="srcform"></div>
-    <div id="srclist" style="display:flex;flex-direction:column;gap:10px;margin-top:14px"></div>
+    <div id="srclist" class="list wide" style="margin-top:14px"></div>
     <div class="acts" style="margin-top:14px"><button class="btn" type="button" id="s-add">Ajouter un site</button><button class="btn ghost" type="button" id="s-export">Télécharger sources.json</button><a class="btn ghost" id="s-actions" target="_blank" rel="noopener" href="#">Lancer une mise à jour</a></div>
     <details class="tok" id="tokbox" style="margin-top:16px">
       <summary id="toksum">Autoriser l'enregistrement depuis cette page</summary>
@@ -242,18 +315,25 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
   function card(ev) {
     var url = safeUrl(ev.url), where = [ev.venue, ev.address].filter(Boolean).join(" · ");
     var extra = [ev.hours ? "Horaires " + ev.hours : "", ev.free ? "Gratuit" : ""].filter(Boolean).join(" · ");
-    return h("article", { class: "ev " + cls(ev.city) }, [
-      h("div", { class: "meta" }, [h("span", { class: "tag " + cls(ev.city), text: ev.city }), h("span", { class: "cat", text: CATS[ev.category] || CATS.autre })]),
-      h("div", { class: "when", text: whenLabel(ev) }),
-      h("h3", { text: ev.title }),
-      where ? h("div", { class: "line", text: where }) : null,
-      extra ? h("div", { class: "line", text: extra }) : null,
-      ev.note ? h("div", { class: "note", text: ev.note }) : null,
-      h("div", { class: "acts" }, [
-        h("a", { class: "btn", target: "_blank", rel: "noopener", href: calUrl(ev), text: "Ajouter à Google Agenda" }),
-        url ? h("a", { class: "btn ghost", target: "_blank", rel: "noopener", href: url, text: "Source" }) : null
+    var a = parse(ev.start);
+    return h("article", { class: "ev dated " + cls(ev.city) }, [
+      h("div", { class: "day", "aria-hidden": "true" }, [h("b", { text: String(a.getDate()) }), h("span", { text: MONTHS[a.getMonth()] })]),
+      h("div", { class: "body" }, [
+        h("div", { class: "meta" }, [h("span", { class: "tag " + cls(ev.city), text: ev.city }), h("span", { class: "cat", text: CATS[ev.category] || CATS.autre })]),
+        h("div", { class: "when", text: whenLabel(ev) }),
+        h("h3", { text: ev.title }),
+        where ? h("div", { class: "line", text: where }) : null,
+        extra ? h("div", { class: "line", text: extra }) : null,
+        ev.note ? h("div", { class: "note", text: ev.note }) : null,
+        h("div", { class: "acts" }, [
+          h("a", { class: "btn", target: "_blank", rel: "noopener", href: calUrl(ev), text: "Ajouter à Google Agenda" }),
+          url ? h("a", { class: "btn ghost", target: "_blank", rel: "noopener", href: url, text: "Source" }) : null
+        ])
       ])
     ]);
+  }
+  function group(city, n) {
+    return h("section", { class: "grp " + cls(city) }, [h("h2", {}, [h("span", { class: "dot " + cls(city) }), city, h("span", { class: "count", text: String(n) })])]);
   }
   function renderAgenda() {
     var r = range(), out = $("out");
@@ -271,9 +351,9 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     ["Bruxelles", "Nantes"].forEach(function (city) {
       var items = list.filter(function (e) { return e.city === city; });
       if (!items.length) return;
-      var g = h("div", { class: "grp" }, [h("h2", {}, [h("span", { class: "dot " + cls(city) }), city + " · " + items.length])]);
-      items.forEach(function (e) { g.appendChild(card(e)); });
-      out.appendChild(g);
+      var g = group(city, items.length), l = h("div", { class: "list" });
+      items.forEach(function (e) { l.appendChild(card(e)); });
+      g.appendChild(l); out.appendChild(g);
     });
   }
 
@@ -286,15 +366,15 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     ["Bruxelles", "Nantes"].forEach(function (city) {
       var items = list.filter(function (s) { return s.city === city; });
       if (!items.length) return;
-      var g = h("div", { class: "grp" }, [h("h2", {}, [h("span", { class: "dot " + cls(city) }), city + " · " + items.length])]);
+      var g = group(city, items.length), l = h("div", { class: "list" });
       items.forEach(function (s) {
-        g.appendChild(h("article", { class: "ev " + cls(city) }, [
+        l.appendChild(h("article", { class: "ev " + cls(city) }, [
           h("h3", { text: s.name }),
           s.note ? h("div", { class: "note", text: s.note }) : null,
           h("div", { class: "acts" }, [safeUrl(s.url) ? h("a", { class: "btn", target: "_blank", rel: "noopener", href: s.url, text: "Voir le site" }) : null])
         ]));
       });
-      box.appendChild(g);
+      g.appendChild(l); box.appendChild(g);
     });
   }
 
