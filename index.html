@@ -19,6 +19,7 @@
   --uk: #0B7A45;
   --es: #B35F00;
   --xx: #5B6070;
+  --star: #B8860B;
   --on-spot: #FFFFFF;
   --focus: #14151A;
   --f-display: "Bricolage Grotesque", "Arial Narrow", Arial, sans-serif;
@@ -28,13 +29,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #121317; --ink: #ECEDF1; --muted: #9AA0B2; --rule: #2C2F38; --card: #1A1C22;
-    --be: #FF5C8F; --fr: #8CA0FF; --uk: #4FD18B; --es: #FFB454; --xx: #9AA0B2; --on-spot: #121317; --focus: #ECEDF1;
+    --be: #FF5C8F; --fr: #8CA0FF; --uk: #4FD18B; --es: #FFB454; --xx: #9AA0B2; --star: #FFD166; --on-spot: #121317; --focus: #ECEDF1;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #121317; --ink: #ECEDF1; --muted: #9AA0B2; --rule: #2C2F38; --card: #1A1C22;
-  --be: #FF5C8F; --fr: #8CA0FF; --uk: #4FD18B; --es: #FFB454; --xx: #9AA0B2; --on-spot: #121317; --focus: #ECEDF1;
+  --be: #FF5C8F; --fr: #8CA0FF; --uk: #4FD18B; --es: #FFB454; --xx: #9AA0B2; --star: #FFD166; --on-spot: #121317; --focus: #ECEDF1;
   color-scheme: dark;
 }
 html { color-scheme: light; }
@@ -179,6 +180,17 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
   .btn { padding-inline: 14px; }
 }
 
+/* ---------- Favori et pas prioritaire ---------- */
+.marks { margin-left: auto; display: inline-flex; gap: 2px; margin-block: -6px; }
+.mk { background: none; border: 0; padding: 4px; border-radius: 5px; cursor: pointer; color: var(--muted); display: inline-flex; line-height: 0; }
+.mk svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+.mk:hover { color: var(--ink); }
+.mk[aria-pressed="true"] svg { fill: currentColor; }
+.mk.fav[aria-pressed="true"] { color: var(--star); }
+.mk.low[aria-pressed="true"] { color: var(--ink); }
+.ev.low { opacity: .55; }
+@media (pointer: coarse) { .mk { padding: 10px; } .marks { margin-block: -12px; margin-right: -6px; } }
+
 /* ---------- Pays : une couleur par pays ---------- */
 .be { --spot: var(--be); } .fr { --spot: var(--fr); } .uk { --spot: var(--uk); } .es { --spot: var(--es); } .xx { --spot: var(--xx); }
 .dot { background: var(--spot, var(--muted)); }
@@ -286,7 +298,7 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     var m = /^([^.]+)\.github\.io$/.exec(location.hostname), p = location.pathname.split("/")[1];
     return (m && p) ? { owner: m[1], name: p } : { owner: "alexanegroussard-hue", name: "agenda" };
   })();
-  var state = { events: [], archive: [], deleted: [], period: "week", country: "", archView: "past", sources: null, meta: null };
+  var state = { events: [], archive: [], deleted: [], marks: {}, period: "week", country: "", archView: "past", sources: null, meta: null };
 
   function pad(n) { return (n < 10 ? "0" : "") + n; }
   function iso(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
@@ -393,6 +405,14 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
       "&dates=" + dates + (tz ? "&ctz=" + encodeURIComponent(tz) : "") +
       "&location=" + encodeURIComponent([ev.venue, ev.address, ev.city].filter(Boolean).join(", ")) + "&details=" + encodeURIComponent(det);
   }
+  function markBtn(kind, label, on, fn) {
+    var NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg"), path = document.createElementNS(NS, "path");
+    svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("aria-hidden", "true");
+    path.setAttribute("d", kind === "fav" ? "M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.9 6.8 19.6l1-5.8L3.5 9.7l5.9-.8z" : "M4.5 7h15L12 19.5z");
+    svg.appendChild(path);
+    var b = h("button", { class: "mk " + kind, type: "button", title: label, "aria-label": label, "aria-pressed": String(on), onclick: fn });
+    b.appendChild(svg); return b;
+  }
   /* mode : "agenda" (boutons Agenda, Source, Supprimer), "past" (Source), "deleted" (Restaurer, Source) */
   function card(ev, mode) {
     var country = countryOf(ev), url = safeUrl(ev.url), where = [ev.venue, ev.address].filter(Boolean).join(" · ");
@@ -402,10 +422,15 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     if (mode === "deleted") acts.push(h("button", { class: "btn", type: "button", text: "Restaurer", onclick: function () { restoreEvent(ev); } }));
     if (url) acts.push(h("a", { class: "btn ghost", target: "_blank", rel: "noopener", href: url, text: "Source" }));
     if (mode === "agenda") acts.push(h("button", { class: "btn ghost danger", type: "button", text: "Supprimer", onclick: function () { removeEvent(ev); } }));
-    return h("article", { class: "ev dated " + cls(country) }, [
+    var mk = mode === "agenda" ? state.marks[markKey(ev)] : "";
+    return h("article", { class: "ev dated " + cls(country) + (mk ? " " + mk : "") }, [
       a ? h("div", { class: "day", "aria-hidden": "true" }, [h("b", { text: String(a.getDate()) }), h("span", { text: MONTHS[a.getMonth()] })]) : null,
       h("div", { class: "body" }, [
-        h("div", { class: "meta" }, [h("span", { class: "tag", text: ev.city || country }), h("span", { class: "cat", text: CATS[ev.category] || CATS.autre })]),
+        h("div", { class: "meta" }, [h("span", { class: "tag", text: ev.city || country }), h("span", { class: "cat", text: CATS[ev.category] || CATS.autre }),
+          mode === "agenda" ? h("span", { class: "marks" }, [
+            markBtn("fav", "Favori", mk === "fav", function () { setMark(ev, "fav"); }),
+            markBtn("low", "Pas prioritaire", mk === "low", function () { setMark(ev, "low"); })
+          ]) : null]),
         h("div", { class: "when", text: whenLabel(ev) }),
         h("h3", { text: ev.title }),
         where ? h("div", { class: "line", text: where }) : null,
@@ -511,22 +536,43 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     b.appendChild(h("div", { class: "toast " + (kind || ""), text: text, role: "status", onclick: function () { b.textContent = ""; } }));
     if (kind !== "err") toastTimer = setTimeout(function () { b.textContent = ""; }, 6000);
   }
-  /* Relit deleted.json sur GitHub, applique fn à la liste, puis l'enregistre : plusieurs appareils restent d'accord. */
-  function mutateDeleted(fn) {
-    return gh("deleted.json", "GET").then(function (cur) {
-      var list = []; try { list = JSON.parse(unb64(cur.content)).events || []; } catch (e) { list = []; }
-      return { list: list, sha: cur.sha };
-    }, function (e) { if (e.status === 404) return { list: [], sha: null }; throw e; }).then(function (c) {
-      var next = fn(c.list.slice());
-      var body = { message: "Événements supprimés ou restaurés depuis la page", content: b64(JSON.stringify({ events: next }, null, 1) + "\n") };
+  /* Relit le fichier sur GitHub, applique fn à son contenu, puis l'enregistre : plusieurs appareils restent d'accord. */
+  function mutateJson(path, fn, message) {
+    return gh(path, "GET").then(function (cur) {
+      var o = {}; try { o = JSON.parse(unb64(cur.content)) || {}; } catch (e) { o = {}; }
+      return { o: o, sha: cur.sha };
+    }, function (e) { if (e.status === 404) return { o: {}, sha: null }; throw e; }).then(function (c) {
+      var next = fn(c.o);
+      var body = { message: message, content: b64(JSON.stringify(next, null, 1) + "\n") };
       if (c.sha) body.sha = c.sha;
-      return gh("deleted.json", "PUT", body).then(function () { state.deleted = next; });
+      return gh(path, "PUT", body).then(function () { return next; });
     });
+  }
+  function mutateDeleted(fn) {
+    return mutateJson("deleted.json", function (o) { return { events: fn((o.events || []).slice()) }; }, "Événements supprimés ou restaurés depuis la page")
+      .then(function (next) { state.deleted = next.events; });
   }
   function needToken() {
     if (token()) return false;
     gsay("Pour enregistrer, autorise d'abord la page : onglet Sources, encadré « Autoriser l'enregistrement depuis cette page ».", "err");
     return true;
+  }
+  function markKey(e) { return e.id || (e.title + "|" + e.start); }
+  var markChain = Promise.resolve();
+  function setMark(ev, kind) {
+    if (needToken()) return;
+    var k = markKey(ev), before = state.marks, val = before[k] === kind ? null : kind;
+    state.marks = Object.assign({}, before);
+    if (val) state.marks[k] = val; else delete state.marks[k];
+    renderAgenda();
+    markChain = markChain.then(function () {
+      return mutateJson("marks.json", function (o) {
+        var m = Object.assign({}, o.marks || {});
+        if (val) m[k] = val; else delete m[k];
+        return { marks: m };
+      }, "Favoris et priorités modifiés depuis la page");
+    }).then(function (next) { state.marks = next.marks; renderAgenda(); })
+      .catch(function (e) { state.marks = before; renderAgenda(); gsay(errText(e), "err"); });
   }
   function removeEvent(ev) {
     if (needToken()) return;
@@ -688,7 +734,13 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     renderAll();
   }).catch(function () { state.sources = []; renderAll(); say("sources.json n'a pas pu être chargé.", "err"); });
   load("archive.json").then(function (d) { state.archive = d.events || []; renderAll(); }).catch(function () {});
-  load("deleted.json").then(function (d) { state.deleted = d.events || []; renderAll(); }).catch(function () {});
+  function loadLive(path) {
+    var fallback = function () { return load(path); };
+    if (!token()) return fallback();
+    return gh(path, "GET").then(function (cur) { return JSON.parse(unb64(cur.content)); }, fallback);
+  }
+  loadLive("deleted.json").then(function (d) { state.deleted = d.events || []; renderAll(); }).catch(function () {});
+  loadLive("marks.json").then(function (d) { state.marks = d.marks || {}; renderAgenda(); }).catch(function () {});
   renderAll();
 })();
 </script>
