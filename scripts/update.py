@@ -57,6 +57,7 @@ SCHEMA = {
                     "title": {"type": "string"},
                     "category": {"type": "string", "enum": ["expo", "salon", "forum", "conf", "autre"]},
                     "venue": {"type": "string"},
+                    "city": {"type": "string"},
                     "address": {"type": "string"},
                     "start": {"type": "string"},
                     "end": {"type": "string"},
@@ -178,12 +179,13 @@ def scope_rule(source: dict) -> str:
 
 def build_prompt(source: dict, text: str, d: dt.date, end: dt.date) -> str:
     return (
-        f"Date du jour : {d.isoformat()}. Source : {source['name']} ({source['city']}).\n"
+        f"Date du jour : {d.isoformat()}. Source : {source['name']} (pays : {country_of(source)}).\n"
         f"Extrais les événements (expositions, salons, forums, conférences, festivals) qui se "
         f"déroulent entre le {d.isoformat()} et le {end.isoformat()}, même en partie.\n"
         "Règles :\n"
         "- Dates au format AAAA-MM-JJ. Si l'année n'est pas écrite, prends l'année de la date du jour. "
         "Pour un événement d'un seul jour, end = start.\n"
+        "- city : la ville où se déroule l'événement, telle qu'elle est écrite dans le texte, sinon chaîne vide.\n"
         "- hours : horaires d'ouverture au format HH:MM-HH:MM, sinon chaîne vide.\n"
         "- url : le lien de la page de l'événement s'il apparaît entre chevrons < > dans le texte, sinon chaîne vide.\n"
         + scope_rule(source) +
@@ -255,9 +257,12 @@ def clean_event(raw: dict, source: dict, text_norm: str, d: dt.date, wend: dt.da
     if not url.startswith("https://"):
         url = source["_url"]
     category = raw.get("category") if raw.get("category") in ("expo", "salon", "forum", "conf", "autre") else "autre"
+    city = re.sub(r"\s+", " ", str(raw.get("city") or "")).strip()[:60]
+    if city and norm(city) not in text_norm:
+        city = ""  # ville absente de la page : on ne la garde pas
     ev = {
         "title": title,
-        "city": source["city"],
+        "city": city or source.get("city", ""),
         "country": country_of(source),
         "category": category,
         "venue": str(raw.get("venue") or source.get("venue") or "").strip()[:120],
@@ -279,7 +284,7 @@ def country_of(item: dict) -> str:
 
 
 def event_key(ev: dict) -> str:
-    return f"{slug(ev['title'])}|{ev['city']}|{ev['start'][:4]}"
+    return f"{slug(ev['title'])}|{country_of(ev)}|{ev['start'][:4]}"
 
 
 def richness(ev: dict) -> int:
@@ -306,7 +311,7 @@ def main() -> int:
             if e.get("id"):
                 deleted_ids.add(e["id"])
             if e.get("title") and e.get("start"):
-                deleted_keys.add(event_key({"title": e["title"], "city": e.get("city", ""), "start": e["start"]}))
+                deleted_keys.add(event_key(e))
 
     def is_deleted(e: dict) -> bool:
         return e.get("id") in deleted_ids or (bool(e.get("title")) and bool(e.get("start")) and event_key(e) in deleted_keys)

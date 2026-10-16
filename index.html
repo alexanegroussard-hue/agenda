@@ -322,11 +322,7 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
   }
 
   /* ---------- Pays et villes ---------- */
-  function cityMap() {
-    var m = Object.assign({}, CITY_COUNTRY);
-    (state.sources || []).forEach(function (s) { if (s.city && CC[s.country]) m[s.city] = s.country; });
-    return m;
-  }
+  function cityMap() { return CITY_COUNTRY; }
   function countryOf(x) {
     if (CC[x.country]) return x.country;
     if (x.source && state.sources) {
@@ -341,11 +337,6 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     (state.sources || []).forEach(function (s) { set[countryOf(s)] = 1; });
     state.events.concat(state.archive, state.deleted).forEach(function (e) { set[countryOf(e)] = 1; });
     return COUNTRIES.filter(function (c) { return set[c]; });
-  }
-  function knownCities() {
-    var c = Object.keys(CITY_COUNTRY);
-    (state.sources || []).forEach(function (s) { if (s.city && c.indexOf(s.city) < 0) c.push(s.city); });
-    return c;
   }
   function chipBtn(val, label) {
     return h("button", { class: "chip", type: "button", "data-c": val, "aria-pressed": String(state.country === val), onclick: function () {
@@ -504,7 +495,6 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
       var g = group(country, items.length), l = h("div", { class: "list" });
       items.forEach(function (s) {
         l.appendChild(h("article", { class: "ev " + cls(country) }, [
-          h("div", { class: "meta" }, [h("span", { class: "tag", text: s.city })]),
           h("h3", { text: s.name }),
           s.note ? h("div", { class: "note", text: s.note }) : null,
           h("div", { class: "acts" }, [safeUrl(s.url) ? h("a", { class: "btn", target: "_blank", rel: "noopener", href: s.url, text: "Voir le site" }) : null])
@@ -602,7 +592,7 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     state.sources.forEach(function (s, i) {
       var country = countryOf(s);
       box.appendChild(h("article", { class: "ev " + cls(country) }, [
-        h("div", { class: "meta" }, [h("span", { class: "tag", text: s.city }), h("span", { class: "cat", text: country }), h("span", { class: "cat", text: s.kind === "atelier" ? "Atelier" : "Événements" })]),
+        h("div", { class: "meta" }, [h("span", { class: "tag", text: country }), h("span", { class: "cat", text: s.kind === "atelier" ? "Atelier" : "Événements" })]),
         h("h3", { text: s.name }),
         h("div", { class: "line", text: s.url }),
         h("div", { class: "acts" }, [
@@ -613,50 +603,27 @@ code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); p
     });
   }
   function edit(i) {
-    var s = i === null ? { city: "Bruxelles", country: "Belgique", kind: "events", scale: "petit", url: "https://" } : state.sources[i];
+    var s = i === null ? { country: "France", kind: "events", scale: "petit", url: "https://" } : state.sources[i];
     var f = $("srcform"); f.textContent = "";
     var name = h("input", { type: "text", value: s.name || "", required: "required" });
     var url = h("input", { type: "url", value: s.url || "", required: "required" });
     var country = h("select", {}, COUNTRIES.map(function (c) { return h("option", { value: c, text: c }); }));
-    var sel = s.city || "Bruxelles", cities = knownCities();
-    if (cities.indexOf(sel) < 0) cities.push(sel);
-    country.value = CC[s.country] ? s.country : (cityMap()[sel] || "Autres");
-    var tags = h("div", { class: "chips", role: "group", "aria-label": "Ville" });
-    function drawTags() {
-      tags.textContent = "";
-      cities.forEach(function (c) {
-        tags.appendChild(h("button", { class: "chip", type: "button", text: c, "aria-pressed": String(c === sel), onclick: function () {
-          sel = c; if (cityMap()[c]) country.value = cityMap()[c]; drawTags();
-        } }));
-      });
-    }
-    drawTags();
-    var newCity = h("input", { type: "text", placeholder: "Autre ville (ex. Londres)", autocomplete: "off", "aria-label": "Autre ville" });
-    function addCity() {
-      var v = newCity.value.trim(); if (!v) return;
-      var known = cities.filter(function (c) { return c.toLowerCase() === v.toLowerCase(); })[0];
-      if (!known) { cities.push(v); known = v; }
-      sel = known; newCity.value = ""; drawTags();
-    }
-    newCity.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); addCity(); } });
+    country.value = CC[s.country] ? s.country : (CITY_COUNTRY[s.city] || "Autres");
     var kind = h("select", {}, [h("option", { value: "events", text: "Événements (agenda daté)" }), h("option", { value: "atelier", text: "Atelier (sur demande, sans dates)" })]); kind.value = s.kind === "atelier" ? "atelier" : "events";
     var note = h("textarea", { rows: "2", placeholder: "Facultatif. Ex. : stages de typographie sur réservation" }); note.value = s.note || "";
     var only = h("input", { type: "checkbox" }); only.checked = !!s.design_only;
     var form = h("form", { class: "form", novalidate: "novalidate" }, [
       h("label", {}, ["Nom", name]), h("label", {}, ["Adresse de la page (celle qui liste les événements ou les ateliers)", url]),
       h("div", { class: "two" }, [h("label", {}, ["Pays", country]), h("label", {}, ["Type", kind])]),
-      h("div", { class: "field" }, [h("span", { text: "Ville" }), tags, h("div", { class: "tagrow" }, [newCity, h("button", { class: "btn ghost", type: "button", text: "Ajouter la ville", onclick: addCity })])]),
       h("label", {}, ["Description", note]),
       h("label", { class: "row" }, [only, "Lieu entièrement consacré au design : garder tous ses événements (type Événements)"]),
       h("div", { class: "acts" }, [h("button", { class: "btn", type: "submit", text: "Enregistrer" }), h("button", { class: "btn ghost", type: "button", text: "Annuler", onclick: function () { f.textContent = ""; } })])
     ]);
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      addCity();
       if (!name.value.trim() || !safeUrl(url.value.trim())) { say("Il faut un nom et une adresse qui commence par https://", "err"); return; }
-      if (!sel) { say("Choisis une ville, ou ajoutes-en une.", "err"); return; }
       var o = i === null ? {} : Object.assign({}, s);
-      o.name = name.value.trim(); o.url = url.value.trim(); o.city = sel; o.country = country.value;
+      o.name = name.value.trim(); o.url = url.value.trim(); o.country = country.value; delete o.city;
       if (kind.value === "atelier") o.kind = "atelier"; else delete o.kind;
       if (note.value.trim()) o.note = note.value.trim(); else delete o.note;
       if (only.checked && kind.value !== "atelier") o.design_only = true; else delete o.design_only;

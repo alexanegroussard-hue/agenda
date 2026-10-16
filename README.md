@@ -52,7 +52,7 @@ Ajoute un objet dans `events.json` avec `"origin": "manual"` : le script ne le m
 
 ## Pays, villes, suppressions et archives
 
-- Chaque source a un **pays** (France, Belgique, Angleterre, Espagne ou Autres) et une **ville** (libre : on peut en ajouter de nouvelles dans le formulaire d'une source). Les filtres et les groupes de la page sont par pays ; la ville s'affiche seulement sur la carte de l'événement.
+- Chaque source a un **pays** (France, Belgique, Angleterre, Espagne ou Autres). La **ville** n'est plus réglée sur la source : le modèle la lit pour chaque événement dans la page (elle doit y figurer, sinon elle reste vide). Les filtres et les groupes de la page sont par pays ; la ville s'affiche seulement sur la carte de l'événement.
 - **Supprimer** un événement l'ajoute à `deleted.json` (copie de l'événement + date). La mise à jour du dimanche ne le remet pas. Archives, onglet Supprimés, permet de le **restaurer**. Comme pour les sources, il faut avoir collé le jeton GitHub sur l'appareil.
 - Les événements terminés restent dans `events.json` 120 jours, puis passent dans `archive.json` (conservés 2 ans). L'onglet Archives, vue Passés, affiche les deux.
 - Sur chaque carte de l'Agenda, l'étoile marque un **favori** et le triangle un événement **pas prioritaire** (grisé, mais conservé). Un seul des deux à la fois ; recliquer l'enlève. Les choix sont enregistrés dans `marks.json` (jeton GitHub requis, comme pour les suppressions) et suivent d'un appareil à l'autre.
