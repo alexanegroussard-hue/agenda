@@ -96,10 +96,10 @@ input, select, textarea { font: inherit; font-size: 16px; color: var(--ink); bac
 input[type=checkbox] { width: 18px; height: 18px; padding: 0; }
 .state { border: 1.5px dashed var(--rule); border-radius: 6px; padding: 22px 18px; color: var(--muted); }
 .state b { color: var(--ink); display: block; font-family: var(--f-display); font-size: 18px; margin-bottom: 4px; }
-.prog { margin: 0 0 14px; padding: 10px 14px; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.prog { margin: 0 0 12px; padding: 6px 10px; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; font-family: var(--f-mono); font-size: 11px; color: var(--muted); }
 .prog[hidden] { display: none; }
 .prog .pt { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--ink); }
-.prog .bar { height: 6px; margin: 8px 0 6px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+.prog .bar { height: 4px; margin: 5px 0 4px; background: var(--rule); border-radius: 3px; overflow: hidden; }
 .prog .bar i { display: block; height: 100%; width: 0; background: var(--fr); border-radius: 3px; transition: width .6s; }
 .foot { font-family: var(--f-mono); font-size: 12px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 12px; }
 .help { font-size: 14px; color: var(--muted); margin: 0; }
@@ -245,12 +245,6 @@ a.fi1:hover .t { text-decoration: underline; }
     <h1>Graphenda</h1>
   </header>
 
-  <section class="prog" id="prog" aria-live="polite" hidden>
-    <div class="pt"><b>Mise à jour en cours</b><span id="prog-n"></span></div>
-    <div class="bar"><i id="prog-bar"></i></div>
-    <div id="prog-t"></div>
-  </section>
-
   <div class="tabs" role="tablist">
     <button type="button" role="tab" id="t-agenda" aria-selected="true">Agenda</button>
     <button type="button" role="tab" id="t-ateliers" aria-selected="false">Ateliers</button>
@@ -299,6 +293,11 @@ a.fi1:hover .t { text-decoration: underline; }
 
   <section id="p-sources" hidden>
     <p class="help">Les sites lus chaque dimanche. Tu peux en ajouter, en modifier ou en retirer ici. La liste est enregistrée dans <code>sources.json</code> et prise en compte à la prochaine mise à jour.</p>
+    <section class="prog" id="prog" aria-live="polite" hidden>
+      <div class="pt"><b>Mise à jour en cours</b><span id="prog-n"></span></div>
+      <div class="bar"><i id="prog-bar"></i></div>
+      <div id="prog-t"></div>
+    </section>
     <div id="srcmsg"></div>
     <div id="srcform"></div>
     <div id="srclist" class="list wide" style="margin-top:14px"></div>
