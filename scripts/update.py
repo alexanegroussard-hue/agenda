@@ -167,14 +167,9 @@ def chunks(text: str, limit: int = MAX_CHUNKS):
 # ---------------------------------------------------------------- modèle
 
 def scope_rule(source: dict) -> str:
-    """Faire omettre les événements hors sujet par le modèle réduit fortement le texte qu'il doit écrire,
-    et donc le temps de calcul (la génération est l'étape la plus lente sur processeur)."""
-    if source.get("design_only"):
-        return "- Liste tous les événements du lieu : il est entièrement consacré au design.\n"
-    return ("- Ne liste QUE les événements liés au graphisme ou au design (graphique, produit, mode, objet, "
-            "numérique), à la typographie, à l'affiche, à l'illustration, à l'édition, à l'impression, au motion "
-            "design ou à l'architecture d'intérieur. Omets tous les autres (concerts, théâtre, sport, cuisine, "
-            "brocantes, loisirs créatifs...) : ne les écris pas.\n")
+    """Tous les événements de la page sont repris, quel que soit leur sujet. Le champ
+    related_to_graphic_design sert seulement à repérer ceux qui relèvent du graphisme (voir « design »)."""
+    return "- Liste TOUS les événements de la page, quel que soit leur sujet : n'en omets aucun.\n"
 
 
 def build_prompt(source: dict, text: str, d: dt.date, end: dt.date) -> str:
@@ -192,7 +187,8 @@ def build_prompt(source: dict, text: str, d: dt.date, end: dt.date) -> str:
         "- hours : horaires d'ouverture au format HH:MM-HH:MM, sinon chaîne vide.\n"
         "- url : le lien de la page de l'événement s'il apparaît entre chevrons < > dans le texte, sinon chaîne vide.\n"
         + scope_rule(source) +
-        "- related_to_graphic_design : toujours true pour les événements que tu listes.\n"
+        "- related_to_graphic_design : true si l'événement concerne le graphisme, le design, la typographie, l'affiche, "
+        "l'illustration, l'édition ou l'impression ; false sinon (photographie, peinture, histoire, musique...).\n"
         "- Si le texte ne contient aucun événement, renvoie {\"events\": []}.\n\n"
         f"TEXTE DE LA PAGE :\n{text}"
     )
@@ -233,10 +229,9 @@ def clean_event(raw: dict, source: dict, text_norm: str, d: dt.date, wend: dt.da
     title = re.sub(r"\s+", " ", str(raw.get("title", ""))).strip()
     if not (3 <= len(title) <= 140):
         return None, "titre invalide"
-    if (raw.get("related_to_graphic_design") is not True
-            and not source.get("design_only")
-            and not DESIGN_WORDS.search(norm(title))):
-        return None, "hors sujet"
+    design = bool(raw.get("related_to_graphic_design") is True
+                   or source.get("design_only")
+                   or DESIGN_WORDS.search(norm(title)))
     start = parse_date(raw.get("start"))
     if not start:
         return None, "date de début invalide"
@@ -270,6 +265,7 @@ def clean_event(raw: dict, source: dict, text_norm: str, d: dt.date, wend: dt.da
         "city": city or source.get("city", ""),
         "country": country_of(source),
         "category": category,
+        "design": design,
         "venue": str(raw.get("venue") or source.get("venue") or "").strip()[:120],
         "address": str(raw.get("address", "")).strip()[:160],
         "start": start.isoformat(),
