@@ -617,6 +617,25 @@
    "id": "lost-and-found-japanese-photography-at-the-a-foundation-2026-09-03",
    "addedAt": "2026-10-25",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Edgar Sarin. Matthäus-Passion",
+   "city": "Ixelles",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-09-02",
+   "end": "2027-04-17",
+   "free": false,
+   "url": "https://bruxelles.evous.be/musees/expositions/",
+   "source": "evous-bxl-expos",
+   "origin": "auto",
+   "hours": "12:00-18:00",
+   "id": "edgar-sarin-matthaus-passion-2026-09-02",
+   "addedAt": "2026-10-25",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
