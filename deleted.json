@@ -226,6 +226,24 @@
    "id": "nouvelle-expo-temporaire-animazing-2026-10-25",
    "addedAt": "2026-10-16",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Tapta meets Judd",
+   "city": "",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-10-16",
+   "end": "2027-03-07",
+   "free": false,
+   "url": "https://bruxelles.evous.be/musees/expositions/",
+   "source": "evous-bxl-expos",
+   "origin": "auto",
+   "id": "tapta-meets-judd-2026-10-16",
+   "addedAt": "2026-10-25",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
