@@ -207,6 +207,25 @@
    "id": "matthaus-passion-edgar-sarin-2026-10-16",
    "addedAt": "2026-10-15",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Nouvelle expo temporaire: Animazing",
+   "city": "Ixelles",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-10-25",
+   "end": "2027-08-29",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?evenId=23910",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "hours": "09:00-18:00",
+   "id": "nouvelle-expo-temporaire-animazing-2026-10-25",
+   "addedAt": "2026-10-16",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
