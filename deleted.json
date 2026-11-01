@@ -93,6 +93,25 @@
    "id": "l-image-elargie-2026-11-05",
    "addedAt": "2026-10-15",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Art meets Science",
+   "city": "Ixelles",
+   "country": "Belgique",
+   "category": "festival",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-10-25",
+   "end": "2027-02-28",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?evenId=23529",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "hours": "09:00-18:00",
+   "id": "art-meets-science-2026-10-25",
+   "addedAt": "2026-10-16",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
