@@ -300,6 +300,24 @@
    "id": "jean-brusselmans-peinture-par-nature-2026-10-14",
    "addedAt": "2026-10-25",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Ali Cherri. Soul Witness",
+   "city": "",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-10-06",
+   "end": "2027-01-03",
+   "free": false,
+   "url": "https://bruxelles.evous.be/musees/expositions/",
+   "source": "evous-bxl-expos",
+   "origin": "auto",
+   "id": "ali-cherri-soul-witness-2026-10-06",
+   "addedAt": "2026-10-25",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
