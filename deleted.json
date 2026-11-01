@@ -150,6 +150,25 @@
    "id": "minimal-processes-of-change-2026-10-23",
    "addedAt": "2026-10-15",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Exposition Edgar Sarin et amis",
+   "city": "Ixelles",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-10-21",
+   "end": "2027-04-17",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?evenId=23800",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "hours": "09:00-18:00",
+   "id": "exposition-edgar-sarin-et-amis-2026-10-21",
+   "addedAt": "2026-10-18",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
