@@ -55,7 +55,8 @@ jobs:
           sudo systemctl stop ollama || true
           nohup ollama serve > ollama.log 2>&1 &
           for i in $(seq 1 40); do curl -s http://localhost:11434 > /dev/null && break; sleep 2; done
-          ollama pull "$MODEL"
+          for i in 1 2 3 4 5; do ollama pull "$MODEL" && break; echo "Échec du téléchargement ($i/5), nouvel essai dans 30 s"; sleep 30; done
+          ollama list | grep -q "${MODEL%%:*}"
 
       - name: Mettre à jour events.json
         env:
