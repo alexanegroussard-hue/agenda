@@ -562,6 +562,24 @@
    "id": "au-dela-de-la-ville-jonas-moenne-2026-09-19",
    "addedAt": "2026-10-25",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Reinventing Photography",
+   "city": "",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-09-18",
+   "end": "2026-12-20",
+   "free": false,
+   "url": "https://bruxelles.evous.be/musees/expositions/",
+   "source": "evous-bxl-expos",
+   "origin": "auto",
+   "id": "reinventing-photography-2026-09-18",
+   "addedAt": "2026-10-25",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
