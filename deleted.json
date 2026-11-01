@@ -131,6 +131,25 @@
    "id": "alluvions-2026-10-25",
    "addedAt": "2026-10-15",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Minimal processes of change",
+   "city": "Ixelles",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-10-23",
+   "end": "2026-11-28",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?evenId=23972",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "hours": "10:00-18:00",
+   "id": "minimal-processes-of-change-2026-10-23",
+   "addedAt": "2026-10-15",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
