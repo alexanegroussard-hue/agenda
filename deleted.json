@@ -599,6 +599,24 @@
    "id": "liturgie-des-jours-sasha-kurmaz-danylo-halkin-2026-09-10",
    "addedAt": "2026-10-25",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Lost and Found. Japanese Photography at the A Foundation",
+   "city": "",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-09-03",
+   "end": "2026-12-20",
+   "free": false,
+   "url": "https://bruxelles.evous.be/musees/expositions/",
+   "source": "evous-bxl-expos",
+   "origin": "auto",
+   "id": "lost-and-found-japanese-photography-at-the-a-foundation-2026-09-03",
+   "addedAt": "2026-10-25",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
