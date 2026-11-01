@@ -636,6 +636,25 @@
    "id": "edgar-sarin-matthaus-passion-2026-09-02",
    "addedAt": "2026-10-25",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Seuls. Même pas peur (d’avoir peur !)",
+   "city": "Bruxelles",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-06-13",
+   "end": "2026-11-15",
+   "free": false,
+   "url": "https://bruxelles.evous.be/musees/expositions/",
+   "source": "evous-bxl-expos",
+   "origin": "auto",
+   "hours": "10:00-18:00",
+   "id": "seuls-meme-pas-peur-d-avoir-peur-2026-06-13",
+   "addedAt": "2026-10-25",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
