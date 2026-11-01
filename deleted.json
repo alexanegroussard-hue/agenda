@@ -580,6 +580,25 @@
    "id": "reinventing-photography-2026-09-18",
    "addedAt": "2026-10-25",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Liturgie des jours. Sasha Kurmaz | Danylo Halkin",
+   "city": "Saint-Gilles",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-09-10",
+   "end": "2026-12-19",
+   "free": false,
+   "url": "https://bruxelles.evous.be/musees/expositions/",
+   "source": "evous-bxl-expos",
+   "origin": "auto",
+   "hours": "11:00-18:00",
+   "id": "liturgie-des-jours-sasha-kurmaz-danylo-halkin-2026-09-10",
+   "addedAt": "2026-10-25",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
