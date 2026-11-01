@@ -785,6 +785,25 @@
    "id": "mangatopia-30-ans-de-manga-signe-kana-2026-10-16",
    "addedAt": "2026-10-25",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "CINE DESIGN | IDENTITY: A CZECH GRAPHIC DESIGN LOVE STORY",
+   "city": "Brussels",
+   "country": "Belgique",
+   "category": "autre",
+   "design": true,
+   "venue": "Design Museum Brussels",
+   "address": "",
+   "start": "2026-11-15",
+   "end": "2026-11-15",
+   "free": false,
+   "url": "https://designmuseum.brussels/en/agenda/",
+   "source": "design-museum-brussels",
+   "origin": "auto",
+   "hours": "18:00-21:00",
+   "id": "cine-design-identity-a-czech-graphic-design-love-story-2026-11-15",
+   "addedAt": "2026-10-14",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
