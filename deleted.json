@@ -748,6 +748,24 @@
    "id": "exposition-wireless-connection-2026-11-08",
    "addedAt": "2026-10-16",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Exposition '11.11.11. repas, promenade & Expo'",
+   "city": "",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-11-14",
+   "end": "2026-11-14",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?type=7",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "id": "exposition-11-11-11-repas-promenade-expo-2026-11-14",
+   "addedAt": "2026-10-16",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
