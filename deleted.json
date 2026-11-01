@@ -169,6 +169,25 @@
    "id": "exposition-edgar-sarin-et-amis-2026-10-21",
    "addedAt": "2026-10-18",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "William Kentridge. I am not me, the horse is not mine",
+   "city": "Bruxelles",
+   "country": "Belgique",
+   "category": "expo",
+   "design": true,
+   "venue": "",
+   "address": "",
+   "start": "2026-10-18",
+   "end": "2027-03-07",
+   "free": false,
+   "url": "https://bruxelles.evous.be/musees/expositions/",
+   "source": "evous-bxl-expos",
+   "origin": "auto",
+   "hours": "10:00-18:00",
+   "id": "william-kentridge-i-am-not-me-the-horse-is-not-mine-2026-10-18",
+   "addedAt": "2026-10-25",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
