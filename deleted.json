@@ -318,6 +318,24 @@
    "id": "ali-cherri-soul-witness-2026-10-06",
    "addedAt": "2026-10-25",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "House of Memory / بيت الذاكرة by Basil Al-Rawi",
+   "city": "",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-10-05",
+   "end": "2027-01-03",
+   "free": false,
+   "url": "https://bruxelles.evous.be/musees/expositions/",
+   "source": "evous-bxl-expos",
+   "origin": "auto",
+   "id": "house-of-memory-by-basil-al-rawi-2026-10-05",
+   "addedAt": "2026-10-25",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
