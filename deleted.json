@@ -412,6 +412,25 @@
    "id": "jean-brusselmans-peintre-par-nature-2026-10-02",
    "addedAt": "2026-10-25",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Inuit – Impressions du Grand Nord canadien",
+   "city": "Bruxelles",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-10-02",
+   "end": "2026-11-25",
+   "free": false,
+   "url": "https://bruxelles.evous.be/musees/expositions/",
+   "source": "evous-bxl-expos",
+   "origin": "auto",
+   "hours": "10:00-18:00",
+   "id": "inuit-impressions-du-grand-nord-canadien-2026-10-02",
+   "addedAt": "2026-10-25",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
