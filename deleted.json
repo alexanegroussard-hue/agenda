@@ -730,6 +730,24 @@
    "id": "wireless-connection-2026-11-08",
    "addedAt": "2026-10-18",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Exposition 'Wireless connection'",
+   "city": "",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-11-08",
+   "end": "2026-12-19",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?type=7",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "id": "exposition-wireless-connection-2026-11-08",
+   "addedAt": "2026-10-16",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
