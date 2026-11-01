@@ -244,6 +244,25 @@
    "id": "tapta-meets-judd-2026-10-16",
    "addedAt": "2026-10-25",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Exposition 'Attrape-couleurs'",
+   "city": "Ixelles",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-10-25",
+   "end": "2027-01-08",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?evenId=23926",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "hours": "09:00-18:00",
+   "id": "exposition-attrape-couleurs-2026-10-25",
+   "addedAt": "2026-10-16",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
