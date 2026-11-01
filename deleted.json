@@ -507,6 +507,24 @@
    "id": "animazing-2026-10-02",
    "addedAt": "2026-10-25",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Icons 20 Years Designer of the Year",
+   "city": "",
+   "country": "Belgique",
+   "category": "expo",
+   "design": true,
+   "venue": "MAD Brussels",
+   "address": "",
+   "start": "2026-10-01",
+   "end": "2026-12-12",
+   "free": false,
+   "url": "https://mad.brussels/en",
+   "source": "mad-brussels",
+   "origin": "auto",
+   "id": "icons-20-years-designer-of-the-year-2026-10-01",
+   "addedAt": "2026-10-16",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
