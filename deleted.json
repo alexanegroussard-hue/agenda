@@ -1,0 +1,22 @@
+{
+ "events": [
+  {
+   "title": "Fashion and Design Walk",
+   "city": "",
+   "country": "Belgique",
+   "category": "salon",
+   "design": true,
+   "venue": "MAD Brussels",
+   "address": "",
+   "start": "2026-11-12",
+   "end": "2026-11-14",
+   "free": false,
+   "url": "https://mad.brussels/en",
+   "source": "mad-brussels",
+   "origin": "auto",
+   "id": "fashion-and-design-walk-2026-11-12",
+   "addedAt": "2026-10-25",
+   "deletedAt": "2026-11-01"
+  }
+ ]
+}
