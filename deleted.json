@@ -673,6 +673,25 @@
    "id": "icons-2026-10-01",
    "addedAt": "2026-10-25",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Fashion & Trains. La mode au fil du rail, depuis 1835",
+   "city": "Bruxelles",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-10-02",
+   "end": "2026-11-25",
+   "free": false,
+   "url": "https://bruxelles.evous.be/musees/expositions/",
+   "source": "evous-bxl-expos",
+   "origin": "auto",
+   "hours": "10:00-18:00",
+   "id": "fashion-trains-la-mode-au-fil-du-rail-depuis-1835-2026-10-02",
+   "addedAt": "2026-10-25",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
