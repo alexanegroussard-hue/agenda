@@ -188,6 +188,25 @@
    "id": "william-kentridge-i-am-not-me-the-horse-is-not-mine-2026-10-18",
    "addedAt": "2026-10-25",
    "deletedAt": "2026-11-01"
+  },
+  {
+   "title": "Matthäus- Passion Edgar Sarin",
+   "city": "Ixelles",
+   "country": "Belgique",
+   "category": "expo",
+   "design": false,
+   "venue": "",
+   "address": "",
+   "start": "2026-10-16",
+   "end": "2027-04-17",
+   "free": false,
+   "url": "https://www.ixelles.be/site/agenda.php?evenId=23800",
+   "source": "ixelles-expos",
+   "origin": "auto",
+   "hours": "09:00-18:00",
+   "id": "matthaus-passion-edgar-sarin-2026-10-16",
+   "addedAt": "2026-10-15",
+   "deletedAt": "2026-11-01"
   }
  ]
 }
