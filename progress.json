@@ -1,1 +1,1 @@
-{"state": "running", "total": 18, "done": 16, "current": "cnap", "startedAt": "2026-11-01T09:12:02+00:00", "updatedAt": "2026-11-01T10:55:49+00:00", "elapsedSec": 6227, "remainingSec": 778}
+{"state": "done", "total": 18, "done": 18, "current": "", "startedAt": "2026-11-01T09:12:02+00:00", "updatedAt": "2026-11-01T10:59:06+00:00", "elapsedSec": 6423, "remainingSec": 0}
